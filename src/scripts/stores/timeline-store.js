@@ -5,6 +5,7 @@ var TimelineConstants = require('../constants/timeline-constants');
 
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var tweet = require('../utils/tweet-transform');
 
 var ActionTypes = TimelineConstants.ActionTypes;
 var CHANGE_EVENT = 'change';
@@ -26,7 +27,8 @@ function _insertInstagramPictures(data) {
       message: (item.caption) ? item.caption.text : false,
       media: {
         type: 'image',
-        url: item.images.standard_resolution.url
+        url: item.images.standard_resolution.url,
+        link: item.link
       },
       favourites: item.likes.count,
       comments: item.comments.count,
@@ -39,24 +41,7 @@ function _insertTweets(data) {
   if (typeof data === 'undefined') return false;
   //TODO move social network response mapper to 'utils'
   data.map(function (item) {
-    _posts.push({
-      id: item.id_str,
-      user: {
-        id: item.user.id_str,
-        username: item.user.screen_name,
-        display_name: item.user.name,
-        profile_picture: item.user.profile_image_url
-      },
-      message: item.text, //TODO: parse plain text to enrich tweet with hashtags, user mentions, etc.
-      media: {
-        type: (item.entities.media) ? item.entities.media.type : false,
-        url: (item.entities.media) ? item.entities.media.media_url : false
-      },
-      favourites: item.favorite_count,
-      comments: item.retweet_count,
-      created_at: new Date(item.created_at),
-      source: 'twitter'
-    });
+    _posts.push(tweet(item));
   });
   _posts.sort(createdAt_date_sort_desc);
 }
@@ -109,11 +94,11 @@ TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug({
+  console.debug('Timeline Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
-  }, 'Timeline Store App Dispatcher register function');
+  });
 });
 
 module.exports = TimelineStore;

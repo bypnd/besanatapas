@@ -53,11 +53,11 @@ InstagramStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug({
+  console.debug('Instagram Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
-  }, 'Instagram Store App Dispatcher register function');
+  });
 });
 
 module.exports = InstagramStore;

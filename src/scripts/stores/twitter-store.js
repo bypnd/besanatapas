@@ -46,11 +46,11 @@ TwitterStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug({
+  console.debug('Twitter Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
-  }, 'Twitter Store App Dispatcher register function');
+  });
 });
 
 module.exports = TwitterStore;

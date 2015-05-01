@@ -10,15 +10,15 @@ var Post = React.createClass({
     var data = this.props.data;
 
     if (data.media.url) {
-      var picture = <img src={data.media.url} />;
+      var picture = <a href={data.media.link} target="_blank"><img src={data.media.url} /></a>;
     }
 
     return (
       <div>
-        <h3>ID: {data.id} <small>{data.source}</small></h3>
+        <h3>{data.user.display_name} | ID: {data.id} <small>{data.source}</small></h3>
         <p>Date: {data.created_at.toString()}</p>
         {picture}
-        <p>Text: {data.message}</p>
+        <div dangerouslySetInnerHTML={{__html: data.message}} />
         <p>Comments: {data.comments}</p>
       </div>
     );

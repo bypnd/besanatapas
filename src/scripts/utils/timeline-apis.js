@@ -22,7 +22,7 @@ module.exports = {
 					console.error('Ajax error!', err.toString());
 				} else {
 					TimelineActions.receiveInstagram(res);
-        	console.info('Ajax success (instagram)!', res);
+        	console.debug('Instagram API success!', res);
 				}
 			}
 		);
@@ -36,7 +36,7 @@ module.exports = {
 					console.error('Ajax error!', err.toString());
 				} else {
 					TimelineActions.receiveTwitter(res.body);
-        	console.info('Ajax success (twitter)!', res);
+        	console.debug('Twitter API success!', res);
 				}
 			});
 
