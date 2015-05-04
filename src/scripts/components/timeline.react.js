@@ -31,9 +31,9 @@ var Timeline = React.createClass({
     }
 
     return (
-      <div>
+      <div className="timeline">
         <h2>Timeline</h2>
-        {posts}
+        <div className="posts">{posts}</div>
       </div>
     );
   },

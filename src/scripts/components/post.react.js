@@ -10,11 +10,12 @@ var Post = React.createClass({
     var data = this.props.data;
 
     if (data.media.url) {
-      var picture = <a href={data.media.link} target="_blank"><img src={data.media.url} /></a>;
+      //var picture = <a href={data.media.link} target="_blank"><img src={data.media.url} /></a>;
+      var picture = <Picture data={data.media} />;
     }
 
     return (
-      <div>
+      <div className="post">
         <h3>{data.user.display_name} | ID: {data.id} <small>{data.source}</small></h3>
         <p>Date: {data.created_at.toString()}</p>
         {picture}
@@ -22,6 +23,18 @@ var Post = React.createClass({
         <p>Comments: {data.comments}</p>
       </div>
     );
+  }
+});
+
+var Picture = React.createClass({
+  render: function () {
+    var data = this.props.data;
+
+    return (
+      <a className="picture" href={data.link} target="_blank">
+        <img src={data.url} />
+      </a>
+    )
   }
 });
 
