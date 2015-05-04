@@ -1,3 +1,49 @@
 @import "variables";
 
 body { background: $light-grey; }
+
+.posts-columns {
+  -moz-column-count: 3;
+  -moz-column-gap: 10px;
+  -webkit-column-count: 3;
+  -webkit-column-gap: 10px;
+  column-count: 3;
+  column-gap: 10px;
+  width: 100%;
+}
+
+.post-columns {
+  border: 1px solid $primary-color;
+  display: inline-block;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.picture img { width: 100%; }
+
+.posts {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -webkit-align-items: baseline; /* Safari */
+  align-items:         baseline;
+  -webkit-align-content: flex-start; /* Safari */
+  align-content:         flex-start;
+}
+.post {
+  border: 1px solid $primary-color;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 30%;
+  margin: 10px;
+  //width: 33.3%;
+}
+
+.post-test {
+  border: 1px solid $primary-color;
+  display: inline-block;
+  width: 30%;
+}
