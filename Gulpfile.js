@@ -19,7 +19,8 @@ var destFileName = 'index.js';
 gulp.task('html', function() {
 	// HTML
   return gulp.src('src/*.html')
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest('./build'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('styles', function () {
