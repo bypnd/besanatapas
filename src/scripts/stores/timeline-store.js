@@ -1,14 +1,12 @@
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-var InstagramStore = require('./instagram-store');
-var TwitterStore = require('./twitter-store');
-var TimelineConstants = require('../constants/timeline-constants');
+import AppDispatcher from '../dispatcher/app-dispatcher';
+import InstagramStore from './instagram-store';
+import TwitterStore from './twitter-store';
+import { ActionTypes } from '../constants/timeline-constants';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
+import tweet from '../utils/tweet-transform';
 
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-var tweet = require('../utils/tweet-transform');
-
-var ActionTypes = TimelineConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 var _posts = [];
 
@@ -101,4 +99,4 @@ TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
   });
 });
 
-module.exports = TimelineStore;
+export default TimelineStore;

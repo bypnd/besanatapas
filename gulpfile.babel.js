@@ -1,19 +1,15 @@
+import gulp from 'gulp';
+import gulpLoadPlugins from 'gulp-load-plugins';
+const plugins = gulpLoadPlugins();
 
-var gulp = require('gulp');
-var plugins = require('gulp-load-plugins')();
+import del from 'del';
+import browserify from 'browserify';
+import watchify from 'watchify';
+import babelify from 'babelify';
+import source from 'vinyl-source-stream';
 
-var del = require('del');
-var browserify = require('browserify');
-var watchify = require('watchify');
-var reactify = require('reactify');
-var source = require('vinyl-source-stream');
-
-var browserSync = require('browser-sync');
-var reload = browserSync.reload;
-
-var sourceFile = './src/scripts/index.js';
-var destFolder = './build/scripts';
-var destFileName = 'index.js';
+import browserSync from 'browser-sync';
+const reload = browserSync.reload;
 
 gulp.task('html', function() {
   // HTML
@@ -41,7 +37,7 @@ gulp.task('browserify', function() {
     debug: true, cache: {}, packageCache: {}, fullPaths: true
   });
 
-  var watcher  = watchify(bundler);
+  var watcher = watchify(bundler);
 
   return watcher
     .on('update', function () { // When any files updates

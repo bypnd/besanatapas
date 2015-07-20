@@ -1,25 +1,26 @@
-var React = require('react');
+import React from 'react';
 
-var Post = require('./post.react');
-var TimelineActions = require('../actions/timeline-actions');
-var TimelineStore = require('../stores/timeline-store');
+import Post from './post.react';
+import TimelineActions from '../actions/timeline-actions';
+import TimelineStore from '../stores/timeline-store';
 
-var items = [];
-
-var getPosts = function () {
+let getPosts = function () {
   return {
     posts: TimelineStore.get()
   };
 }
 
-var Timeline = React.createClass({
-  getInitialState: function () {
-    return getPosts();
-  },
-  componentDidMount: function() {
+class Timeline extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this._onChange = this._onChange.bind(this);
+    this.state = getPosts()
+  }
+  componentDidMount() {
     TimelineStore.addChangeListener(this._onChange);
-  },
-  render: function () {
+  }
+  render() {
     var posts = [];
 
     if (Object.keys(this.state.posts).length < 1) {
@@ -36,10 +37,10 @@ var Timeline = React.createClass({
         <div className="posts">{posts}</div>
       </div>
     );
-  },
-  _onChange: function() {
+  }
+  _onChange() {
     this.setState(getPosts());
   }
-});
+}
 
-module.exports = Timeline;
+export default Timeline;

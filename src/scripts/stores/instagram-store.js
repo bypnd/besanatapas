@@ -1,14 +1,12 @@
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-var TimelineConstants = require('../constants/timeline-constants');
+import AppDispatcher from '../dispatcher/app-dispatcher';
+import { ActionTypes } from '../constants/timeline-constants';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+const CHANGE_EVENT = 'change';
 
-var ActionTypes = TimelineConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _pictures = [];
-var _pagination = [];
+let _pictures = [];
+let _pagination = [];
 
 function _insertPictures(data) {
   if (typeof data === 'undefined') return false;
@@ -60,4 +58,4 @@ InstagramStore.dispatchToken = AppDispatcher.register(function (payload) {
   });
 });
 
-module.exports = InstagramStore;
+export default InstagramStore;

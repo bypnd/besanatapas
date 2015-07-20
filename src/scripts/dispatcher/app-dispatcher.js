@@ -1,10 +1,8 @@
-var TimelineConstants = require('../constants/timeline-constants');
-var Dispatcher = require('flux').Dispatcher;
-var assign = require('object-assign');
+import { PayloadSources } from '../constants/timeline-constants';
+import { Dispatcher } from 'flux';
+import assign from 'object-assign';
 
-var PayloadSources = TimelineConstants.PayloadSources;
-
-var AppDispatcher = assign(new Dispatcher(), {
+export default assign(new Dispatcher(), {
   handleServerAction: function (action) {
     var playload = {
       source: PayloadSources.SERVER_ACTION,
@@ -20,5 +18,3 @@ var AppDispatcher = assign(new Dispatcher(), {
     this.dispatch(payload);
   }
 });
-
-module.exports = AppDispatcher;

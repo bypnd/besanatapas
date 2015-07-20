@@ -1,7 +1,7 @@
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-var TimelineConstants = require('../constants/timeline-constants');
+import AppDispatcher from '../dispatcher/app-dispatcher';
+import TimelineConstants from '../constants/timeline-constants';
 
-TimelineActions = {
+export default {
   receiveInstagram: function(rawResponse) {
     AppDispatcher.handleServerAction({
       type: TimelineConstants.ActionTypes.INSTAGRAM_API_RESPONSE,
@@ -15,5 +15,3 @@ TimelineActions = {
     });
   }
 };
-
-module.exports = TimelineActions;

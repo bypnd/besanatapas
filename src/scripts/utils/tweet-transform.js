@@ -1,5 +1,3 @@
-'use strict';
-
 function Transform(tweet) {
   if (typeof tweet === 'undefined') return false; //TODO: raise an error because the argument is mandatory
 
@@ -72,4 +70,4 @@ function _entity(entity, type, options) {
   return anchors;
 }
 
-module.exports = Transform;
+export default Transform;

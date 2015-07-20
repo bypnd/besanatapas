@@ -1,11 +1,9 @@
-var AppDispatcher = require('../dispatcher/app-dispatcher');
-var TimelineConstants = require('../constants/timeline-constants');
+import AppDispatcher from '../dispatcher/app-dispatcher';
+import { ActionTypes } from '../constants/timeline-constants';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
-
-var ActionTypes = TimelineConstants.ActionTypes;
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 var _tweets = [];
 
@@ -53,4 +51,4 @@ TwitterStore.dispatchToken = AppDispatcher.register(function (payload) {
   });
 });
 
-module.exports = TwitterStore;
+export default TwitterStore;

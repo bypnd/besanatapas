@@ -1,16 +1,10 @@
-(function () {
-	'use strict';
+import React from 'react';
+import Timeline from './components/timeline.react';
+import TimelineSources from './utils/timeline-apis';
 
-	var React = require('react');
+TimelineSources.fetchAPI();
 
-	var Timeline = require('./components/timeline.react');
-	var TimelineSources = require('./utils/timeline-apis');
-
-	TimelineSources.fetchAPI();
-
-	React.render(
-	  <Timeline />,
-	  document.getElementById('timeline-container')
-	);
-
-})();
+React.render(
+  <Timeline />,
+  document.getElementById('timeline-container')
+);

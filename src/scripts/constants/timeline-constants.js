@@ -1,7 +1,6 @@
-var keyMirror = require('keymirror');
+import keyMirror from 'keymirror';
 
-module.exports = {
-
+export default {
   ActionTypes: keyMirror({
     INSTAGRAM_API_RESPONSE: null,
     INSTAGRAM_COMMENT: null,
@@ -11,10 +10,8 @@ module.exports = {
     TWITTER_FAVOURITE: null,
     TWITTER_REPLY: null
   }),
-
   PayloadSources: keyMirror({
     SERVER_ACTION: null,
     VIEW_ACTION: null
   })
-
 };

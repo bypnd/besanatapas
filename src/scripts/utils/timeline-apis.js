@@ -1,45 +1,42 @@
-var TimelineActions = require('../actions/timeline-actions');
-var request = require('superagent');
-var jsonp = require('jsonp');
+import TimelineActions from '../actions/timeline-actions';
+import request from 'superagent';
+import jsonp from 'jsonp';
 
-var instagram = {
+const instagram = {
   userId: '1464295575',
   clientId: 'c0901148858d4ec684d3894bc6c7bc1c'
 };
 
-var twitter = {
+const twitter = {
   userId: '239744001'
 };
 
-module.exports = {
+export default {
   fetchAPI: function () {
-
     // fetch instagram API
-		jsonp(
-			'https://api.instagram.com/v1/users/' + instagram.userId + '/media/recent/?client_id=' + instagram.clientId,
-			function (err, res) {
-				if (err) {
-					console.error('Ajax error!', err.toString());
-				} else {
-					TimelineActions.receiveInstagram(res);
-        	console.debug('Instagram API success!', res);
-				}
-			}
-		);
-
+    jsonp(
+      'https://api.instagram.com/v1/users/' + instagram.userId + '/media/recent/?client_id=' + instagram.clientId,
+      function (err, res) {
+        if (err) {
+          console.error('Ajax error!', err.toString());
+        } else {
+          TimelineActions.receiveInstagram(res);
+          console.debug('Instagram API success!', res);
+        }
+      }
+    );
     // fetch twitter API
-		request
-			.get('http://localhost:8080/statuses/user_timeline.json')
-			.query({ user_id: twitter.userId })
-			.end(function (err, res) {
-				if (err) {
-					console.error('Ajax error!', err.toString());
-				} else {
-					TimelineActions.receiveTwitter(res.body);
-        	console.debug('Twitter API success!', res);
-				}
-			});
-
+    request
+      .get('http://localhost:8080/statuses/user_timeline.json')
+      .query({ user_id: twitter.userId })
+      .end(function (err, res) {
+        if (err) {
+          console.error('Ajax error!', err.toString());
+        } else {
+          TimelineActions.receiveTwitter(res.body);
+          console.debug('Twitter API success!', res);
+        }
+      });
   }
 };
 
