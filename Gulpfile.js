@@ -17,7 +17,7 @@ var destFolder = './build/scripts';
 var destFileName = 'index.js';
 
 gulp.task('html', function() {
-	// HTML
+  // HTML
   return gulp.src('src/*.html')
     .pipe(gulp.dest('./build'))
     .pipe(reload({stream: true}));
