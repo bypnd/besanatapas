@@ -3,7 +3,7 @@ import browserify from 'browserify';
 import watchify from 'watchify';
 import babelify from 'babelify';
 import source from 'vinyl-source-stream';
-import { plugins, reload } from '../lib';
+import { plugins, reload, handleErrors } from '../lib';
 import { browserify as config } from '../config';
 
 gulp.task('browserify', function() {
@@ -22,6 +22,7 @@ gulp.task('browserify', function() {
       var updateStart = Date.now();
       plugins.util.log('Updating!');
       watcher.bundle()
+      .on('error', handleErrors)
       .pipe(source(config.outputName))
       // This is where you add uglifying etc.
       .pipe(gulp.dest('./build/scripts/'))
@@ -29,6 +30,7 @@ gulp.task('browserify', function() {
       plugins.util.log('Updated!', (Date.now() - updateStart) + 'ms');
     })
     .bundle() // Create the initial bundle when starting the task
+    .on('error', handleErrors)
     .pipe(source(config.outputName))
     .pipe(gulp.dest(config.dest))
     .pipe(reload({stream: true}));
