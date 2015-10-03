@@ -27,7 +27,7 @@ export default {
     );
     // fetch twitter API
     request
-      .get('http://localhost:8080/statuses/user_timeline.json')
+      .get('http://localhost:5000/statuses/user_timeline.json')
       .query({ user_id: twitter.userId })
       .end(function (err, res) {
         if (err) {
