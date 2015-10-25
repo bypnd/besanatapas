@@ -1,0 +1,59 @@
+@import "besana";
+
+.container {
+  @include display (flex);
+  & > *:nth-child(n) {
+    @include flex-grow(1);
+    @include flex-shrink(1);
+  }
+  & > aside {
+    background: $gray-10;
+    border-right: 1px solid $gray-20;
+    padding: $gutter;
+    min-width: 250px;
+  }
+  & > .content {
+    height: 100vh;
+    padding: $gutter;
+    overflow-y: auto;
+  }
+}
+
+.content {
+  section {
+    margin-bottom: 2rem;
+    & > h2 { border-bottom: 4px solid $text-color; }
+    & > h3 { border-bottom: 2px solid $text-color; }
+    & > h4 { border-bottom: 2px solid $gray-20; }
+  }
+}
+.font-family {
+  &.sans-serif, &.serif, &.mono, &.custom {
+    margin-bottom: 1rem;
+  }
+  &.sans-serif > h4 { font-family: $font-family-sans-serif; }
+  &.serif > h4 { font-family: $font-family-serif; }
+  &.mono > h4 { font-family: $font-family-monospace; }
+  &.custom > h4 { font-family: $font-family-custom; }
+}
+
+.colors {
+  .color {
+    &::before {
+      content: '';
+      display: block;
+      height: 2rem;
+      width: 100%;
+    }
+    &.primary::before { background-color: $primary-color; }
+    &.secondary::before { background-color: $secondary-color; }
+    &.text::before { background-color: $text-color; }
+    &.alert::before { background-color: $alert-color; }
+    &.success::before { background-color: $success-color; }
+    &.warning::before { background-color: $warning-color; }
+    &.info::before { background-color: $info-color; }
+    p:not(:first-of-type) {
+      margin: 0;
+    }
+  }
+}
