@@ -12,6 +12,12 @@ export default {
     src: SRC + '/*.html',
     dest: DEST
   },
+  assets: {
+    images: {
+      src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
+      dest: DEST + '/images'
+    }
+  },
   styles: {
     src: SRC + "/styles/**/*.{sass,scss}",
     dest: DEST + '/styles',

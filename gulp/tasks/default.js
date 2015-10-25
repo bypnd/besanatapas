@@ -1,3 +1,3 @@
 import gulp from 'gulp';
 
-gulp.task('default', ['markup', 'styles', 'browserify', 'watch'], function () {});
+gulp.task('default', ['assets', 'markup', 'styles', 'browserify', 'watch'], function () {});
