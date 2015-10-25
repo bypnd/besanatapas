@@ -1,0 +1,29 @@
+$primary-color: #58646F;
+$secondary-color: #A8ACB8;
+$text-color: $primary-color;
+$alert-color: #F20125;
+$success-color: #3DDC83;
+$warning-color: #F2DA48;
+$info-color: #C4E8EE;
+
+$black: #0B0C0D;
+$white: #FFFFFF;
+$blue: #2196F3;
+$green: #4CAF50;
+$grey: #9E9E9E;
+$orange: #FF9800;
+$pink: #E91E63;
+$purple: #9C27B0;
+$red: #F44336;
+$teal: #1de9b6;
+$yellow: #FFEB3B;
+
+$gray-90: lighten($black, 10%);
+$gray-80: lighten($black, 20%);
+$gray-70: lighten($black, 30%);
+$gray-60: lighten($black, 40%);
+$gray-50: lighten($black, 50%);
+$gray-40: lighten($black, 60%);
+$gray-30: lighten($black, 70%);
+$gray-20: lighten($black, 80%);
+$gray-10: lighten($black, 90%);

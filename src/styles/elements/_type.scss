@@ -1,0 +1,95 @@
+// fonts
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif: Georgia, "Times New Roman", Times, serif;
+$font-family-monospace: Menlo, Monaco, Consolas, "Courier New", monospace; //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+$font-family-custom: 'Comfortaa';
+
+$base-font-family: $font-family-sans-serif !default;
+$font-color: $text-color !default;
+
+$font-size-xs: .6rem !default;
+$font-size-sm: .8rem !default;
+$font-size: $em-base !default;
+$font-size-lg: 1.3rem !default;
+$font-size-xl: 1.6rem !default;
+
+// headers
+$header-font-family: $font-family-custom !default;
+$header-font-color: $text-color !default;
+$header-font-style: normal !default;
+$header-font-weight: 700 !default;
+$header-line-height: 1.4 !default;
+$header-margin: 1rem 0 .6rem !default;
+$header-text-rendering: optimizeLegibility !default;
+
+$h1-font-size: $font-size-xl !default;
+$h2-font-size: $font-size-lg !default;
+$h3-font-size: $font-size !default;
+$h4-font-size: $font-size !default;
+$h5-font-size: $font-size-sm !default;
+$h6-font-size: $font-size-xs !default;
+
+$small-font-size: 60% !default;
+$small-font-color: scale-color($text-color, $lightness: 35%) !default;
+
+// paragraph
+$paragraph-line-height: 1.4 !default;
+$paragraph-margin: .4rem 0 !default;
+$paragraph-text-rendering: optimizeLegibility !default;
+
+$anchor-font-color: $blue !default;
+$anchor-font-color-hover: shade($anchor-font-color, 25%) !default;
+$anchor-text-decoration: none !default;
+
+
+
+body {
+  color: $font-color;
+  font-family: $base-font-family;
+  // font-feature-settings: "kern", "liga", "pnum";  <- not standard. look into `font-variant`
+  font-size: $font-size;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $header-font-color;
+  font-family: $header-font-family;
+  font-style: $header-font-style;
+  font-weight: $header-font-weight;
+  line-height: $header-line-height;
+  margin: $header-margin;
+  text-rendering: $header-text-rendering;
+  small {
+    color: $small-font-color;
+    font-size: $small-font-size;
+    line-height: 0;
+  }
+}
+
+p {
+  line-height: $paragraph-line-height;
+  margin: $paragraph-margin;
+  text-rendering: $paragraph-text-rendering;
+}
+a {
+  color: $anchor-font-color;
+  line-height: inherit;
+  text-decoration: $anchor-text-decoration;
+  &:active,
+  &:focus,
+  &:hover {
+    color: $anchor-font-color-hover;
+  }
+}
+ul {
+  &.no-bullets { list-style-type: none; padding: 0; }
+  &.inline {
+    margin: 0; padding: 0;
+    li {
+      display: inline-block;
+      &:not(last-child) { margin-right: $gutter; }
+    }
+  }
+}
+.font-serif { font-family: $font-family-serif; }
+.font-mono { font-family: $font-family-monospace; }
+.font-custom { font-family: $font-family-custom; }

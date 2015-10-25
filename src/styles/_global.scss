@@ -1,0 +1,12 @@
+// bourbon variables
+$em-base: 16px;
+
+@import "bourbon";
+
+html { box-sizing: border-box; }
+*, *::after, *::before { box-sizing: inherit; }
+
+// our global variables
+$global-radius: 3px;
+
+$gutter: 1rem;
