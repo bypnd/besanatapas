@@ -1,8 +1,13 @@
 // bourbon variables
 $em-base: 16px;
-
 @import "bourbon";
 
+// font-awesome variables
+//$fa-font-path: "../font";
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.4.0/fonts" !default; // for referencing Bootstrap CDN font files directly
+@import "font-awesome";
+
+//
 html { box-sizing: border-box; }
 *, *::after, *::before { box-sizing: inherit; }
 

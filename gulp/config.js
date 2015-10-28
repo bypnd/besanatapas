@@ -25,7 +25,7 @@ export default {
       includePaths: [
         'node_modules/normalize.css/',
         bourbon.includePaths[0],
-        'node_modules/bourbon-neat/app/assets/stylesheets/'
+        'node_modules/font-awesome/scss/'
       ]
     }
   },
