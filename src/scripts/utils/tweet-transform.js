@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function Transform(tweet) {
   if (typeof tweet === 'undefined') return false; //TODO: raise an error because the argument is mandatory
 
@@ -19,7 +21,7 @@ function Transform(tweet) {
     },
     favourites: tweet.favorite_count,
     comments: tweet.retweet_count,
-    created_at: new Date(tweet.created_at),
+    created_at: moment(Date.parse(tweet.created_at)),
     source: 'twitter'
   }
 }

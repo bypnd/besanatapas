@@ -4,6 +4,7 @@ import TwitterStore from './twitter-store';
 import { ActionTypes } from '../constants/timeline-constants';
 import { EventEmitter } from 'events';
 import assign from 'object-assign';
+import moment from 'moment';
 import tweet from '../utils/tweet-transform';
 
 const CHANGE_EVENT = 'change';
@@ -30,7 +31,7 @@ function _insertInstagramPictures(data) {
       },
       favourites: item.likes.count,
       comments: item.comments.count,
-      created_at: new Date(item.created_time*1000),
+      created_at: moment.unix(item.created_time),
       source: 'instagram'
     });
   });
