@@ -1,34 +1,48 @@
 import React from 'react';
 
 class Post extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
-    const data = this.props.data;
-
     return (
-      <div className="post">
-        <h3>{data.user.display_name} | ID: {data.id} <small>{data.source}</small></h3>
-        <p>Date: {data.created_at.toString()}</p>
-        {(data.media.url) ? <Picture data={data.media} /> : false}
-        <div dangerouslySetInnerHTML={{__html: data.message}} />
-        <p>Comments: {data.comments}</p>
+      <div className={'item item-'+this.props.source}>
+        <header>
+          <img src={this.props.user.profile_picture} className="user-picture" />
+          <div className="item-header-meta">
+            <i className={'fa fa-'+this.props.source}></i>
+            <h3>{this.props.user.display_name}</h3>
+            <span className="engagement">
+               <i className="fa fa-comment"></i> <span className="qty">{this.props.comments}</span>
+               <i className="fa fa-heart"></i> <span className="qty">{this.props.favourites}</span>
+            </span>
+            <small>{this.props.created_at.fromNow()}</small>
+          </div>
+        </header>
+        {(this.props.media.url) ? <Picture {...this.props.media} /> : false}
+        <div className="message" dangerouslySetInnerHTML={{__html: this.props.message}} />
       </div>
     );
   }
 }
 Post.propTypes = {
-  data: React.PropTypes.object.isRequired
+  comments: React.PropTypes.number,
+  created_at: React.PropTypes.object,
+  favourites: React.PropTypes.number,
+  id: React.PropTypes.string,
+  media: React.PropTypes.object,
+  message: React.PropTypes.string,
+  source: React.PropTypes.string,
+  user: React.PropTypes.shape({
+    display_name: React.PropTypes.string,
+    id: React.PropTypes.string,
+    profile_picture: React.PropTypes.string,
+    username: React.PropTypes.string
+  })
 }
 
 class Picture extends React.Component {
   render() {
-    const data = this.props.data;
-
     return (
-      <a className="picture" href={data.link} target="_blank">
-        <img src={data.url} />
+      <a className="picture" href={this.props.link} target="_blank">
+        <img src={this.props.url} />
       </a>
     )
   }

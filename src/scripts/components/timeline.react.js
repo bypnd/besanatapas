@@ -21,20 +21,14 @@ class Timeline extends React.Component {
     TimelineStore.addChangeListener(this._onChange);
   }
   render() {
-    var posts = [];
-
-    if (Object.keys(this.state.posts).length < 1) {
-      posts = <div>Loading...</div>;
-    } else {
-      this.state.posts.forEach(function (post, index) {
-        posts.push(<Post key={index} data={post} />);
-      });
-    }
+    if (this.state.posts.length === 0) return <div>Loading...</div>;
 
     return (
       <div className="timeline">
         <h2>Timeline</h2>
-        <div className="posts">{posts}</div>
+        <div className="timeline-item">
+          {this.state.posts.map( post => <Post key={post.id} {...post} /> )}
+        </div>
       </div>
     );
   }
