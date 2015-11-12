@@ -36,7 +36,7 @@ Post.propTypes = {
     profile_picture: React.PropTypes.string,
     username: React.PropTypes.string
   })
-}
+};
 
 class Picture extends React.Component {
   render() {
@@ -44,7 +44,7 @@ class Picture extends React.Component {
       <a className="picture" href={this.props.link} target="_blank">
         <img src={this.props.url} />
       </a>
-    )
+    );
   }
 }
 

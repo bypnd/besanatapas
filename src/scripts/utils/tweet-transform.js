@@ -23,7 +23,7 @@ function Transform(tweet) {
     comments: tweet.retweet_count,
     created_at: moment(Date.parse(tweet.created_at)),
     source: 'twitter'
-  }
+  };
 }
 
 function _message(message, entities) {
@@ -34,7 +34,7 @@ function _message(message, entities) {
     media: {keyword: 'url', prefix: ''},
     user_mentions: { href: 'https://twitter.com/{keyword}', keyword: 'screen_name', prefix: '@'},
     urls: { href: '', keyword: 'url', prefix: ''}
-  }
+  };
 
   for (var entityName in entities) {
     var entity = (entities[entityName].length) ? entities[entityName] : false;
@@ -55,7 +55,7 @@ function _entity(entity, type, options) {
 
   var anchor_tmpl = '<a href="{href}" target="_blank">{content}</a>';
 
-  var anchors = entity.map(function (item, index) {
+  var anchors = entity.map(function (item) {
     //TODO: all of this is too obfuscated, there have to be a better way
     var keyword = options.prefix + item[options.keyword];
     var content = (options.href) ? keyword : item.display_url;
@@ -66,7 +66,7 @@ function _entity(entity, type, options) {
     return {
       keyword: keyword,
       content: (typeof options.href !== 'undefined') ? anchor : ''
-    }
+    };
   });
 
   return anchors;

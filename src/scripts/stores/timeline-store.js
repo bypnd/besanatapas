@@ -66,7 +66,7 @@ var TimelineStore = assign({}, EventEmitter.prototype, {
   },
   get: function () {
     return _posts;
-  },
+  }
 
 });
 
@@ -93,7 +93,7 @@ TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Timeline Store App Dispatcher register function', {
+  console.debug('Timeline Store App Dispatcher register function', { //eslint-disable-line no-console
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload

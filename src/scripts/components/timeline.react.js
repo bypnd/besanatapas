@@ -1,21 +1,20 @@
 import React from 'react';
 
 import Post from './post.react';
-import TimelineActions from '../actions/timeline-actions';
 import TimelineStore from '../stores/timeline-store';
 
 let getPosts = function () {
   return {
     posts: TimelineStore.get()
   };
-}
+};
 
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
 
     this._onChange = this._onChange.bind(this);
-    this.state = getPosts()
+    this.state = getPosts();
   }
   componentDidMount() {
     TimelineStore.addChangeListener(this._onChange);

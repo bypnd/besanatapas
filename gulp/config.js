@@ -1,6 +1,6 @@
 import bourbon from 'bourbon';
 
-const DEST = "./build";
+const DEST = './build';
 const SRC = './src';
 
 export default {
@@ -19,7 +19,7 @@ export default {
     }
   },
   styles: {
-    src: SRC + "/styles/**/*.{sass,scss}",
+    src: SRC + '/styles/**/*.{sass,scss}',
     dest: DEST + '/styles',
     settings: {
       includePaths: [
@@ -34,4 +34,4 @@ export default {
     outputName: 'index.js',
     dest: DEST + '/scripts'
   }
-}
+};

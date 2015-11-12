@@ -26,7 +26,7 @@ var TwitterStore = assign({}, EventEmitter.prototype, {
   },
   get: function () {
     return _tweets;
-  },
+  }
 
 });
 
@@ -44,7 +44,7 @@ TwitterStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Twitter Store App Dispatcher register function', {
+  console.debug('Twitter Store App Dispatcher register function', { //eslint-disable-line no-console
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload

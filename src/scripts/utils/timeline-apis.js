@@ -18,10 +18,10 @@ export default {
       'https://api.instagram.com/v1/users/' + instagram.userId + '/media/recent/?client_id=' + instagram.clientId,
       function (err, res) {
         if (err) {
-          console.error('Ajax error!', err.toString());
+          console.error('Ajax error!', err.toString()); //eslint-disable-line no-console
         } else {
           TimelineActions.receiveInstagram(res);
-          console.debug('Instagram API success!', res);
+          console.debug('Instagram API success!', res); //eslint-disable-line no-console
         }
       }
     );
@@ -31,10 +31,10 @@ export default {
       .query({ user_id: twitter.userId })
       .end(function (err, res) {
         if (err) {
-          console.error('Ajax error!', err.toString());
+          console.error('Ajax error!', err.toString()); //eslint-disable-line no-console
         } else {
           TimelineActions.receiveTwitter(res.body);
-          console.debug('Twitter API success!', res);
+          console.debug('Twitter API success!', res); //eslint-disable-line no-console
         }
       });
   }

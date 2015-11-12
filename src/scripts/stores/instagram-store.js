@@ -6,7 +6,7 @@ import assign from 'object-assign';
 const CHANGE_EVENT = 'change';
 
 let _pictures = [];
-let _pagination = [];
+let _pagination = []; //eslint-disable-line no-unused-vars
 
 function _insertPictures(data) {
   if (typeof data === 'undefined') return false;
@@ -32,7 +32,7 @@ var InstagramStore = assign({}, EventEmitter.prototype, {
   },
   get: function () {
     return _pictures;
-  },
+  }
 
 });
 
@@ -51,7 +51,7 @@ InstagramStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Instagram Store App Dispatcher register function', {
+  console.debug('Instagram Store App Dispatcher register function', { //eslint-disable-line no-console
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
