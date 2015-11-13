@@ -15,6 +15,9 @@ export default {
     outputName: 'index.js',
     dest: DEST + '/scripts'
   },
+  lint: {
+    src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
+  },
   markup: {
     src: SRC + '/*.html',
     dest: DEST
