@@ -1,3 +1,7 @@
 {
-  "title": "Besana Tapas | Gastrobar"
+  "title": "Besana Tapas | Gastrobar",
+  "logger": {
+    "accessToken": "45c2815f31ee478fb6f1a05db91556b0",
+    "level": 3
+  }
 }

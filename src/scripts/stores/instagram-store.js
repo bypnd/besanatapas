@@ -1,7 +1,8 @@
+import assign from 'object-assign';
+import logger from '../utils/logger';
 import AppDispatcher from '../dispatcher/app-dispatcher';
 import { ActionTypes } from '../constants/timeline-constants';
 import { EventEmitter } from 'events';
-import assign from 'object-assign';
 
 const CHANGE_EVENT = 'change';
 
@@ -51,7 +52,7 @@ InstagramStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Instagram Store App Dispatcher register function', { //eslint-disable-line no-console
+  logger.log('Instagram Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload

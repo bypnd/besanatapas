@@ -1,4 +1,4 @@
-import assign from 'object-assign';
+import assign from 'deep-assign';
 import bourbon from 'bourbon';
 import fs from 'fs';
 import minimist from 'minimist';

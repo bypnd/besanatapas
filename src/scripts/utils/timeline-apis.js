@@ -1,6 +1,8 @@
-import TimelineActions from '../actions/timeline-actions';
-import request from 'superagent';
 import jsonp from 'jsonp';
+import logger from '../utils/logger';
+import request from 'superagent';
+
+import TimelineActions from '../actions/timeline-actions';
 
 const instagram = {
   userId: '1464295575',
@@ -18,10 +20,10 @@ export default {
       'https://api.instagram.com/v1/users/' + instagram.userId + '/media/recent/?client_id=' + instagram.clientId,
       function (err, res) {
         if (err) {
-          console.error('Ajax error!', err.toString()); //eslint-disable-line no-console
+          logger.error('Ajax error!', err.toString());
         } else {
           TimelineActions.receiveInstagram(res);
-          console.debug('Instagram API success!', res); //eslint-disable-line no-console
+          logger.log('Instagram API success!', res);
         }
       }
     );
@@ -31,10 +33,10 @@ export default {
       .query({ user_id: twitter.userId })
       .end(function (err, res) {
         if (err) {
-          console.error('Ajax error!', err.toString()); //eslint-disable-line no-console
+          logger.error('Ajax error!', err.toString());
         } else {
           TimelineActions.receiveTwitter(res.body);
-          console.debug('Twitter API success!', res); //eslint-disable-line no-console
+          logger.log('Twitter API success!', res);
         }
       });
   }

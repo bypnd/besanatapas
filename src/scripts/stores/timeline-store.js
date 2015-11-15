@@ -1,11 +1,14 @@
+import assign from 'object-assign';
+import moment from 'moment';
+import logger from '../utils/logger';
+import tweet from '../utils/tweet-transform';
+
 import AppDispatcher from '../dispatcher/app-dispatcher';
 import InstagramStore from './instagram-store';
 import TwitterStore from './twitter-store';
+
 import { ActionTypes } from '../constants/timeline-constants';
 import { EventEmitter } from 'events';
-import assign from 'object-assign';
-import moment from 'moment';
-import tweet from '../utils/tweet-transform';
 
 const CHANGE_EVENT = 'change';
 
@@ -93,7 +96,7 @@ TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Timeline Store App Dispatcher register function', { //eslint-disable-line no-console
+  logger.log('Timeline Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload

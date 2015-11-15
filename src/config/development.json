@@ -1,3 +1,6 @@
 {
-  "title": "DEV!! | Besana Tapas | Gastrobar"
+  "title": "DEV!! | Besana Tapas | Gastrobar",
+  "logger": {
+    "level": 2
+  }
 }

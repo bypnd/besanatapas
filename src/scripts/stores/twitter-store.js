@@ -1,7 +1,9 @@
+import assign from 'object-assign';
+import logger from '../utils/logger';
+
 import AppDispatcher from '../dispatcher/app-dispatcher';
 import { ActionTypes } from '../constants/timeline-constants';
 import { EventEmitter } from 'events';
-import assign from 'object-assign';
 
 const CHANGE_EVENT = 'change';
 
@@ -44,7 +46,7 @@ TwitterStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 
   //TODO: replace console with some loggin API
-  console.debug('Twitter Store App Dispatcher register function', { //eslint-disable-line no-console
+  logger.log('Twitter Store App Dispatcher register function', {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
