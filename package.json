@@ -2,7 +2,7 @@
   "name": "besanatapas.com",
   "version": "0.2.0",
   "description": "Website for Besana Tapas Gastrobar in Utrera, Sevilla",
-  "main": "src/scripts/index.js",
+  "main": "src/scripts/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -47,9 +47,10 @@ export default {
     }
   },
   browserify: {
-    src: SRC + '/scripts/index.js',
-    outputName: 'index.js',
-    dest: DEST + '/scripts'
+    dest: DEST + '/scripts',
+    outputName: 'app.js',
+    src: SRC + '/scripts/app.js',
+    watch: (options.env === 'development')
   },
   lint: {
     src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]

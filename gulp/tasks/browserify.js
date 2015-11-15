@@ -1,37 +1,38 @@
-import gulp from 'gulp';
-import browserify from 'browserify';
-import watchify from 'watchify';
 import babelify from 'babelify';
+import browserify from 'browserify';
+import gulp from 'gulp';
 import source from 'vinyl-source-stream';
-import { plugins, reload, handleErrors } from '../lib';
+import watchify from 'watchify';
 import { browserify as config } from '../config';
+import { handleErrors, plugins, reload } from '../lib';
 
-gulp.task('browserify', function() {
-  // babelify+watchify+browserify
-
-  var bundler = browserify({
-    entries: [config.src],
-    transform: [babelify],
-    debug: true, cache: {}, packageCache: {}, fullPaths: true
-  });
-
-  var watcher = watchify(bundler);
-
-  return watcher
-    .on('update', function () { // When any files updates
-      var updateStart = Date.now();
-      plugins.util.log('Updating!');
-      watcher.bundle()
-      .on('error', handleErrors)
-      .pipe(source(config.outputName))
-      // This is where you add uglifying etc.
-      .pipe(gulp.dest('./build/scripts/'))
-      .pipe(reload({stream: true}));
-      plugins.util.log('Updated!', (Date.now() - updateStart) + 'ms');
-    })
-    .bundle() // Create the initial bundle when starting the task
+// babelify+watchify+browserify
+var b = browserify({
+  entries: [config.src],
+  transform: [babelify],
+  debug: true,
+  cache: {}, packageCache: {}
+});
+var bundler = function () {
+  var bundleStart = Date.now();
+  plugins.util.log('Browserify bundler started');
+  return b
+    .bundle()
     .on('error', handleErrors)
     .pipe(source(config.outputName))
     .pipe(gulp.dest(config.dest))
-    .pipe(reload({stream: true}));
+    .pipe(reload({stream:true}))
+    .pipe(plugins.notify({
+      message: '<%= file.relative %> successfuly bundled in <%= options.time %> ms',
+      templateOptions: { time: Date.now() - bundleStart }
+    }));
+};
+if (config.watch) {
+  b = watchify(b);
+  b.on('update', bundler);
+  b.on('log', plugins.util.log);
+}
+
+gulp.task('browserify', function() {
+  return bundler();
 });
