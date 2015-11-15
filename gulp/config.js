@@ -61,8 +61,9 @@ export default {
     src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
   },
   markup: {
-    src: SRC + '/*.html',
-    dest: DEST
+    data: baseConfig,
+    dest: DEST,
+    src: SRC + '/*.html'
   },
   serve: {
     server: { baseDir: DEST },
