@@ -1,7 +1,43 @@
+import assign from 'object-assign';
 import bourbon from 'bourbon';
+import fs from 'fs';
+import minimist from 'minimist';
+import { plugins } from './lib';
+
+let knownOptions = {
+  string: 'env',
+  default: { env: process.env.NODE_ENV || 'production' } //eslint-disable-line no-undef
+};
+let options = minimist(process.argv.slice(2), knownOptions); //eslint-disable-line no-undef
+if (process.argv.indexOf('dev') !== -1) options.env = 'development'; //eslint-disable-line no-undef
 
 const DEST = './build';
 const SRC = './src';
+
+function loadJSON(filepath) {
+  try {
+    return JSON.parse(fs.readFileSync(filepath, 'utf8'));
+  } catch (err) {
+    plugins.util.log(
+      plugins.util.colors.yellow('WARNNING!! Unable to load JSON file: '),
+      plugins.util.colors.red(err.message)
+    );
+    return {};
+  }
+}
+// generate configs: combine base + environment configs
+const pkg = loadJSON('./package.json');
+const baseConfig = loadJSON('./src/config/config.json');
+const envConfig = loadJSON('./src/config/' + options.env + '.json');
+assign(
+  baseConfig,
+  {
+    debug: (options.env === 'development'),
+    env: options.env,
+    version: pkg.version
+  },
+  envConfig
+);
 
 export default {
   assets: {
@@ -11,7 +47,7 @@ export default {
     }
   },
   browserify: {
-    src: SRC + '/scripts/index.js',  // Only need initial file, browserify finds the deps
+    src: SRC + '/scripts/index.js',
     outputName: 'index.js',
     dest: DEST + '/scripts'
   },
