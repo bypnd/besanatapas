@@ -33,6 +33,6 @@ if (config.watch) {
   b.on('log', plugins.util.log);
 }
 
-gulp.task('browserify', function() {
+gulp.task('browserify', ['config'], function() {
   return bundler();
 });

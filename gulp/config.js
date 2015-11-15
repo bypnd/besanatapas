@@ -52,6 +52,11 @@ export default {
     src: SRC + '/scripts/app.js',
     watch: (options.env === 'development')
   },
+  config: {
+    data: baseConfig,
+    src: SRC +  '/config/config.tmpl',
+    dest: SRC + '/scripts'
+  },
   lint: {
     src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
   },
