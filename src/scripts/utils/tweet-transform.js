@@ -60,7 +60,7 @@ function _entity(entity, type, options) {
     //TODO: all of this is too obfuscated, there have to be a better way
     var keyword = options.prefix + item[options.keyword];
     var content = (options.href) ? keyword : item.display_url;
-    var href = (options.href) ? options.href.replace('{keyword}', keyword) : item.expanded_url;
+    var href = (options.href) ? options.href.replace('{keyword}', item[options.keyword]) : item.expanded_url;
     var anchor = anchor_tmpl
       .replace('{content}', content)
       .replace('{href}', href);
