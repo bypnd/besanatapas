@@ -22,7 +22,8 @@ function Transform(tweet) {
     favourites: tweet.favorite_count,
     comments: tweet.retweet_count,
     created_at: moment(Date.parse(tweet.created_at)),
-    source: 'twitter'
+    source: 'twitter',
+    source_url: 'http://twitter.com/' + tweet.user.screen_name + '/status/' + tweet.id_str
   };
 }
 

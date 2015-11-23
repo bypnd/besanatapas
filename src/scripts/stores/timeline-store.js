@@ -35,7 +35,8 @@ function _insertInstagramPictures(data) {
       favourites: item.likes.count,
       comments: item.comments.count,
       created_at: moment.unix(item.created_time),
-      source: 'instagram'
+      source: 'instagram',
+      source_url: item.link
     });
   });
 }
