@@ -94,15 +94,19 @@ const tracker = {
 };
 export default tracker;
 
-export class Tracker extends React.Component {
-  componentDidMount() {
-    tracker.page('homepage');
+export function Tracker(Component) {
+  class TrackerHoC extends React.Component {
+    constructor(props) {
+      super(props);
+    }
+    componentWillMount() {
+    }
+    componentDidMount() {
+      tracker.page('homepage');
+    }
+    render() {
+      return <Component {...this.props} {...this.state} onClick={tracker.click} />;
+    }
   }
-  render() {
-    return (
-      <div {...this.props} onClick={tracker.click}>
-        {this.props.children}
-      </div>
-    );
-  }
+  return TrackerHoC;
 }
