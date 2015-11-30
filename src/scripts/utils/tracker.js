@@ -1,9 +1,11 @@
 import config from '../config';
 import logger from './logger';
+import throttle from 'lodash.throttle';
 import React from 'react';
 
 const _limit = 2;
 const _requests = [];
+let _maxScroll = 0;
 
 function _sendTracking() {
   if (window.ga) {
@@ -22,7 +24,7 @@ setInterval(function () {
 }, 1000);
 
 /**
- * Queue request to google analytics
+ * Queue request to analytics
  */
 function _request() {
   _requests.push(Array.prototype.slice.call(arguments));
@@ -94,15 +96,42 @@ const tracker = {
 };
 export default tracker;
 
+function _beforeUnload() {
+  let _scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+  let _viewportHeight = document.documentElement.clientHeight;
+  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  let _currentScrollPercent = Math.round(_currentScroll / (_scrollHeight - _viewportHeight) * 100);
+  let _maxScrollPercent = Math.round(_maxScroll / (_scrollHeight - _viewportHeight) * 100);
+  tracker.event('onCloseScroll', {
+    category: 'engadgment',
+    action: 'close scroll',
+    label: _currentScrollPercent + '%',
+    value: Math.round(_currentScroll)
+  });
+  tracker.event('maxScroll', {
+    category: 'engadgment',
+    action: 'max scroll',
+    label: _maxScrollPercent + '%',
+    value: Math.round(_maxScroll)
+  });
+}
+const _onScroll = throttle(function () {
+  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  _maxScroll = (_currentScroll > _maxScroll) ? _currentScroll : _maxScroll;
+}, 1000);
+
 export function Tracker(Component) {
   class TrackerHoC extends React.Component {
     constructor(props) {
       super(props);
     }
-    componentWillMount() {
-    }
     componentDidMount() {
+      window.addEventListener('beforeunload', _beforeUnload);
+      window.addEventListener('scroll', _onScroll);
       tracker.page('homepage');
+    }
+    componentWillUnount() {
+      window.removeEventListener('scroll', _onScroll);
     }
     render() {
       return <Component {...this.props} {...this.state} onClick={tracker.click} />;
