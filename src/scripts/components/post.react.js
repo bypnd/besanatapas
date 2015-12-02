@@ -2,15 +2,6 @@ import React from 'react';
 import track from '../utils/tracker';
 
 class Post extends React.Component {
-  componentDidMount() {
-    track.event('item rendered', {
-      category: this.props.source,
-      action: 'rendered',
-      label: this.props.source_url,
-      id: this.props.id,
-      type: this.props.source
-    });
-  }
   render() {
     return (
       <div className={'item item-'+this.props.source}>
