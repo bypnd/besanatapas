@@ -39,45 +39,43 @@ assign(
   envConfig
 );
 
-export default {
-  assets: {
-    images: {
-      src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
-      dest: DEST + '/images'
-    }
-  },
-  browserify: {
-    dest: DEST + '/scripts',
-    outputName: 'app.js',
-    src: SRC + '/scripts/app.js',
-    watch: (options.env === 'development')
-  },
-  config: {
-    data: baseConfig,
-    src: SRC +  '/config/config.tmpl',
-    dest: SRC + '/scripts'
-  },
-  lint: {
-    src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
-  },
-  markup: {
-    data: baseConfig,
-    dest: DEST,
-    src: SRC + '/*.html'
-  },
-  serve: {
-    server: { baseDir: DEST },
-    notify: false
-  },
-  styles: {
-    src: SRC + '/styles/**/*.{sass,scss}',
-    dest: DEST + '/styles',
-    settings: {
-      includePaths: [
-        'node_modules/normalize.css/',
-        bourbon.includePaths[0],
-        'node_modules/font-awesome/scss/'
-      ]
-    }
+export const assets = {
+  images: {
+    src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
+    dest: DEST + '/images'
+  }
+};
+export const browserify = {
+  dest: DEST + '/scripts',
+  outputName: 'app.js',
+  src: SRC + '/scripts/app.js',
+  watch: (options.env === 'development')
+};
+export const config = {
+  data: baseConfig,
+  src: SRC +  '/config/config.tmpl',
+  dest: SRC + '/scripts'
+};
+export const lint = {
+  src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
+};
+export const markup = {
+  data: baseConfig,
+  dest: DEST,
+  src: SRC + '/*.html'
+};
+export const serve = {
+  server: { baseDir: DEST },
+  notify: false
+};
+export const styles = {
+  src: SRC + '/styles/**/*.{sass,scss}',
+  dest: DEST + '/styles',
+  settings: {
+    includePaths: [
+      'node_modules/normalize.css/',
+      bourbon.includePaths[0],
+      'node_modules/font-awesome/scss/'
+    ]
   }
 };

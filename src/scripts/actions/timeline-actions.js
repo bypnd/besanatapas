@@ -1,16 +1,16 @@
 import AppDispatcher from '../dispatcher/app-dispatcher';
-import TimelineConstants from '../constants/timeline-constants';
+import { ActionTypes } from '../constants/timeline-constants';
 
 export default {
   receiveInstagram: function(rawResponse) {
     AppDispatcher.handleServerAction({
-      type: TimelineConstants.ActionTypes.INSTAGRAM_API_RESPONSE,
+      type: ActionTypes.INSTAGRAM_API_RESPONSE,
       rawResponse: rawResponse
     });
   },
   receiveTwitter: function(rawResponse) {
     AppDispatcher.handleServerAction({
-      type: TimelineConstants.ActionTypes.TWITTER_API_RESPONSE,
+      type: ActionTypes.TWITTER_API_RESPONSE,
       rawResponse: rawResponse
     });
   }

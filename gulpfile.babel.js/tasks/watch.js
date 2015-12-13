@@ -1,7 +1,7 @@
 import gulp from 'gulp';
-import config from '../config';
+import { styles, markup } from '../config';
 
 gulp.task('watch', ['serve'], function() {
-  gulp.watch(config.styles.src,   ['styles']);
-  gulp.watch(config.markup.src, ['markup']);
+  gulp.watch(styles.src,   ['styles']);
+  gulp.watch(markup.src, ['markup']);
 });
