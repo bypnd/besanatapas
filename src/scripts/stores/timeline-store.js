@@ -26,7 +26,7 @@ function _insertInstagramPictures(data) {
         display_name: item.user.full_name,
         profile_picture: item.user.profile_picture
       },
-      message: (item.caption) ? item.caption.text : false,
+      message: (item.caption) ? item.caption.text : undefined,
       media: {
         type: 'image',
         url: item.images.standard_resolution.url,
