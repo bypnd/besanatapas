@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tracker } from '../utils/tracker';
 
-import Post from './post.react';
+import Post from './Post';
 import TimelineStore from '../stores/timeline-store';
 
 let getPosts = function () {

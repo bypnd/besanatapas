@@ -8,10 +8,12 @@ import { handleErrors, plugins, reload } from '../lib';
 
 // babelify+watchify+browserify
 var b = browserify({
-  entries: [config.src],
-  transform: [babelify],
+  cache: {},
   debug: true,
-  cache: {}, packageCache: {}
+  entries: [config.src],
+  extensions: ['.jsx'],
+  packageCache: {},
+  transform: [babelify]
 });
 var bundler = function () {
   var bundleStart = Date.now();
