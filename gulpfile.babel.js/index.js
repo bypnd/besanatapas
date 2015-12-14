@@ -1,4 +1,4 @@
-import requireDir from 'require-dir';
+import requireDir from 'require-dir'
 
 // Require all tasks in gulp/tasks, including subfolders
-requireDir('./tasks', { recurse: true });
+requireDir('./tasks', { recurse: true })

@@ -1,7 +1,7 @@
-import gulp from 'gulp';
-import { plugins, reload } from '../lib';
+import gulp from 'gulp'
+import { plugins, reload } from '../lib'
 
-import { config } from '../config';
+import { config } from '../config'
 
 gulp.task('config', function() {
   // copy the right config file into scripts folder
@@ -9,5 +9,5 @@ gulp.task('config', function() {
     .pipe(plugins.template({config: JSON.stringify(config.data)}))
     .pipe(plugins.rename('config.js'))
     .pipe(gulp.dest(config.dest))
-    .pipe(reload({stream: true}));
-});
+    .pipe(reload({stream: true}))
+})

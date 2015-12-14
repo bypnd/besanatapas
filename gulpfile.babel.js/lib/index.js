@@ -1,5 +1,5 @@
-import gulpLoadPlugins from 'gulp-load-plugins';
+import gulpLoadPlugins from 'gulp-load-plugins'
 
-export const plugins = gulpLoadPlugins();
-export { reload } from 'browser-sync';
-export { handleErrors } from './handleErrors.js';
+export const plugins = gulpLoadPlugins()
+export { reload } from 'browser-sync'
+export { handleErrors } from './handleErrors.js'

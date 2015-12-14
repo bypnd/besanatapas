@@ -1,27 +1,27 @@
-import React from 'react';
-import { Tracker } from '../utils/Tracker';
+import React from 'react'
+import { Tracker } from '../utils/Tracker'
 
-import Post from './Post';
-import TimelineStore from '../stores/timeline-store';
+import Post from './Post'
+import TimelineStore from '../stores/timeline-store'
 
 let getPosts = function () {
   return {
     posts: TimelineStore.get()
-  };
-};
+  }
+}
 
 class Timeline extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this._onChange = this._onChange.bind(this);
-    this.state = getPosts();
+    this._onChange = this._onChange.bind(this)
+    this.state = getPosts()
   }
   componentDidMount() {
-    TimelineStore.addChangeListener(this._onChange);
+    TimelineStore.addChangeListener(this._onChange)
   }
   render() {
-    if (this.state.posts.length === 0) return <div>Loading...</div>;
+    if (this.state.posts.length === 0) return <div>Loading...</div>
     return (
       <div className="timeline">
         <h2>Timeline</h2>
@@ -29,11 +29,11 @@ class Timeline extends React.Component {
           {this.state.posts.map( post => <Post key={post.id} {...post} /> )}
         </div>
       </div>
-    );
+    )
   }
   _onChange() {
-    this.setState(getPosts());
+    this.setState(getPosts())
   }
 }
 
-export default Tracker(Timeline);
+export default Tracker(Timeline)

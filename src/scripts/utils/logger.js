@@ -1,4 +1,4 @@
-import config from '../config';
+import config from '../config'
 
 /** log levels:
  *  5 error
@@ -16,29 +16,29 @@ const _LEVELS = {
   log: 2,
   debug: 1,
   trace: 1
-};
+}
 
-let _history = [];
-let _level = config.logger.level || 0;
+let _history = []
+let _level = config.logger.level || 0
 
 function _devToolsConsole(level) {
-  const args = Array.prototype.slice.call(arguments);
-  args.shift();
+  const args = Array.prototype.slice.call(arguments)
+  args.shift()
   // check if console[level] is a method of object console <- To be ignored by IE9 and lower
   if (typeof console === 'object' && console[level] && console[level].apply) { //eslint-disable-line no-console
-    console[level].apply(console, args); //eslint-disable-line no-console
+    console[level].apply(console, args) //eslint-disable-line no-console
   }
 }
 function _logWriter(level) {
-  const args = Array.prototype.slice.call(arguments);
-  _history.push(args);
+  const args = Array.prototype.slice.call(arguments)
+  _history.push(args)
   if (config.debug) {
-    _devToolsConsole.apply(this, args);
+    _devToolsConsole.apply(this, args)
   } else if (config.logger && Rollbar) { //eslint-disable-line no-undef
-    args.shift();
+    args.shift()
     // Rollbar doesn't have `log` level, we change to `debug`
-    level = (level === 'log') ? 'debug' : level;
-    Rollbar[level].apply(Rollbar, args); //eslint-disable-line no-undef
+    level = (level === 'log') ? 'debug' : level
+    Rollbar[level].apply(Rollbar, args) //eslint-disable-line no-undef
   }
 }
 
@@ -46,24 +46,24 @@ function Logger() { /* constructor */ }
 
 Logger.prototype.log = function () {
   if (_level <= _LEVELS.log) {
-    const args = Array.prototype.slice.call(arguments);
-    args.unshift('log');
-    _logWriter.apply(this, args);
+    const args = Array.prototype.slice.call(arguments)
+    args.unshift('log')
+    _logWriter.apply(this, args)
   }
-};
+}
 Logger.prototype.debug = function () {
   if (_level <= _LEVELS.debug) {
-    const args = Array.prototype.slice.call(arguments);
-    args.unshift('log');
-    _logWriter.apply(this, args);
+    const args = Array.prototype.slice.call(arguments)
+    args.unshift('log')
+    _logWriter.apply(this, args)
   }
-};
+}
 Logger.prototype.error = function () {
   if (_level <= _LEVELS.error) {
-    const args = Array.prototype.slice.call(arguments);
-    args.unshift('error');
-    _logWriter.apply(this, args);
+    const args = Array.prototype.slice.call(arguments)
+    args.unshift('error')
+    _logWriter.apply(this, args)
   }
-};
+}
 
-export default new Logger();
+export default new Logger()

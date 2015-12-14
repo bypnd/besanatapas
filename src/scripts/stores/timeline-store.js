@@ -1,21 +1,21 @@
-import assign from 'object-assign';
-import moment from 'moment';
-import logger from '../utils/logger';
-import tweet from '../utils/tweet-transform';
+import assign from 'object-assign'
+import moment from 'moment'
+import logger from '../utils/logger'
+import tweet from '../utils/tweet-transform'
 
-import AppDispatcher from '../dispatcher/app-dispatcher';
-import InstagramStore from './instagram-store';
-import TwitterStore from './twitter-store';
+import AppDispatcher from '../dispatcher/app-dispatcher'
+import InstagramStore from './instagram-store'
+import TwitterStore from './twitter-store'
 
-import { ActionTypes } from '../constants/timeline-constants';
-import { EventEmitter } from 'events';
+import { ActionTypes } from '../constants/timeline-constants'
+import { EventEmitter } from 'events'
 
-const CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change'
 
-var _posts = [];
+var _posts = []
 
 function _insertInstagramPictures(data) {
-  if (typeof data === 'undefined') return false;
+  if (typeof data === 'undefined') return false
   //TODO move social network response mapper to 'utils'
   data.map(function (item) {
     _posts.push({
@@ -37,59 +37,59 @@ function _insertInstagramPictures(data) {
       created_at: moment.unix(item.created_time),
       source: 'instagram',
       source_url: item.link
-    });
-  });
+    })
+  })
 }
 function _insertTweets(data) {
-  if (typeof data === 'undefined') return false;
+  if (typeof data === 'undefined') return false
   //TODO move social network response mapper to 'utils'
   data.map(function (item) {
-    _posts.push(tweet(item));
-  });
-  _posts.sort(createdAt_date_sort_desc);
+    _posts.push(tweet(item))
+  })
+  _posts.sort(createdAt_date_sort_desc)
 }
 var createdAt_date_sort_desc = function (obj1, obj2) {
   // This is a comparison function that will result in dates being sorted in DESCENDING order.
   //TODO: move sorting function to 'utils'
-  if (obj1.created_at > obj2.created_at) return -1;
-  if (obj1.created_at < obj2.created_at) return 1;
-  return 0;
-};
+  if (obj1.created_at > obj2.created_at) return -1
+  if (obj1.created_at < obj2.created_at) return 1
+  return 0
+}
 
 
 var TimelineStore = assign({}, EventEmitter.prototype, {
 
   emitChange: function() {
-    this.emit(CHANGE_EVENT);
+    this.emit(CHANGE_EVENT)
   },
   addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+    this.on(CHANGE_EVENT, callback)
   },
   removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+    this.removeListener(CHANGE_EVENT, callback)
   },
   get: function () {
-    return _posts;
+    return _posts
   }
 
-});
+})
 
 TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
-  var action = payload.action;
+  var action = payload.action
 
   switch (action.type) {
 
     case ActionTypes.INSTAGRAM_API_RESPONSE:
-      AppDispatcher.waitFor([InstagramStore.dispatchToken]);
-      _insertInstagramPictures(InstagramStore.get());
-      TimelineStore.emitChange();
-      break;
+      AppDispatcher.waitFor([InstagramStore.dispatchToken])
+      _insertInstagramPictures(InstagramStore.get())
+      TimelineStore.emitChange()
+      break
 
     case ActionTypes.TWITTER_API_RESPONSE:
-      AppDispatcher.waitFor([TwitterStore.dispatchToken]);
-      _insertTweets(TwitterStore.get());
-      TimelineStore.emitChange();
-      break;
+      AppDispatcher.waitFor([TwitterStore.dispatchToken])
+      _insertTweets(TwitterStore.get())
+      TimelineStore.emitChange()
+      break
 
     default:
       // no default
@@ -101,7 +101,7 @@ TimelineStore.dispatchToken = AppDispatcher.register(function (payload) {
     source: payload.source,
     actionType: payload.action.type,
     _payload: payload
-  });
-});
+  })
+})
 
-export default TimelineStore;
+export default TimelineStore

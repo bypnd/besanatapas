@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 class Post extends React.Component {
   render() {
@@ -29,7 +29,7 @@ class Post extends React.Component {
           dangerouslySetInnerHTML={{__html: this.props.message}}
           data-trail={this.props.source + ',click,message'} />
       </div>
-    );
+    )
   }
 }
 Post.propTypes = {
@@ -46,7 +46,7 @@ Post.propTypes = {
     profile_picture: React.PropTypes.string,
     username: React.PropTypes.string
   })
-};
+}
 
 class Picture extends React.Component {
   render() {
@@ -54,8 +54,8 @@ class Picture extends React.Component {
       <a className="picture" href={this.props.link} target="_blank">
         <img src={this.props.url} />
       </a>
-    );
+    )
   }
 }
 
-export default Post;
+export default Post

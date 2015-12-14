@@ -1,25 +1,25 @@
-import config from '../config';
-import logger from './logger';
-import throttle from 'lodash.throttle';
-import React from 'react';
+import config from '../config'
+import logger from './logger'
+import throttle from 'lodash.throttle'
+import React from 'react'
 
-let _maxScroll = 0;
+let _maxScroll = 0
 
 function _sendTracking() {
   if (window.ga) {
-    window.ga.apply(ga, Array.prototype.slice.call(arguments)); //eslint-disable-line no-undef
+    window.ga.apply(ga, Array.prototype.slice.call(arguments)) //eslint-disable-line no-undef
   } else {
-    logger.error('ga not available');
+    logger.error('ga not available')
   }
 }
 
-_sendTracking('create', config.analytics.id, config.analytics.cookieDomain);
+_sendTracking('create', config.analytics.id, config.analytics.cookieDomain)
 
 /**
  * Queue request to analytics
  */
 function _request() {
-  _sendTracking.apply(_sendTracking, Array.prototype.slice.call(arguments));
+  _sendTracking.apply(_sendTracking, Array.prototype.slice.call(arguments))
 }
 /**
  * Extract the information to send to the event (category,action,label,value)
@@ -33,7 +33,7 @@ function _request() {
 function _trail(element) {
   return (_dataset(element, 'trail')) ?
     _dataset(element, 'trail')
-  : (element.parentElement) ? _trail(element.parentElement) : ',';
+  : (element.parentElement) ? _trail(element.parentElement) : ','
 }
 /**
  * dataset "polyfill" for <=IE10
@@ -42,7 +42,7 @@ function _trail(element) {
 function _dataset(element, dataName) {
   return (element.dataset) ?
     element.dataset[dataName]
-  : element.getAttribute('data-' + dataName);
+  : element.getAttribute('data-' + dataName)
 }
 /**
  * Return a string describing the HTMLElement with the following format:
@@ -57,76 +57,76 @@ function _elementSignature(element) {
     ( (element.className) ? '.' + element.className : '' ) +
     ( (element.textContent && element.textContent.length < 512) ?
         '[' + element.textContent + ']' : ''
-    );
+    )
 }
 
 const tracker = {
   page: function (pagename, options) {
-    logger.debug('tracking pageview', pagename, options);
-    _request('send', 'pageview', options);
+    logger.debug('tracking pageview', pagename, options)
+    _request('send', 'pageview', options)
   },
   event: function (eventname, options) {
-    logger.debug('tracking event', eventname, options);
+    logger.debug('tracking event', eventname, options)
     _request('send', 'event',
       (options) ? options.category : undefined,
       (options) ? options.action : undefined,
       (options) ? options.label : undefined,
       (options) ? options.value : undefined
-    );
+    )
   },
   click: function (event) {
-    const trail = _trail(event.target).split(',');
+    const trail = _trail(event.target).split(',')
     if (trail.length) {
-      logger.debug('tracking event', trail);
+      logger.debug('tracking event', trail)
       _request('send', 'event',
         (trail[0]) ? trail[0] : 'none',
         (trail[1]) ? trail[1] : 'click',
         (trail[2]) ? trail[2] : _elementSignature(event.target)
-      );
+      )
     }
   }
-};
+}
 
 function _beforeUnload() {
-  let _scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
-  let _viewportHeight = document.documentElement.clientHeight;
-  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  let _currentScrollPercent = Math.round(_currentScroll / (_scrollHeight - _viewportHeight) * 100);
-  let _maxScrollPercent = Math.round(_maxScroll / (_scrollHeight - _viewportHeight) * 100);
+  let _scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
+  let _viewportHeight = document.documentElement.clientHeight
+  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop
+  let _currentScrollPercent = Math.round(_currentScroll / (_scrollHeight - _viewportHeight) * 100)
+  let _maxScrollPercent = Math.round(_maxScroll / (_scrollHeight - _viewportHeight) * 100)
   tracker.event('onCloseScroll', {
     category: 'engadgment',
     action: 'close scroll',
     label: _currentScrollPercent + '%',
     value: Math.round(_currentScroll)
-  });
+  })
   tracker.event('maxScroll', {
     category: 'engadgment',
     action: 'max scroll',
     label: _maxScrollPercent + '%',
     value: Math.round(_maxScroll)
-  });
+  })
 }
 const _onScroll = throttle(function () {
-  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  _maxScroll = (_currentScroll > _maxScroll) ? _currentScroll : _maxScroll;
-}, 1000);
+  let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop
+  _maxScroll = (_currentScroll > _maxScroll) ? _currentScroll : _maxScroll
+}, 1000)
 
 export function Tracker(Component) {
   class TrackerHoC extends React.Component {
     constructor(props) {
-      super(props);
+      super(props)
     }
     componentDidMount() {
-      window.addEventListener('beforeunload', _beforeUnload);
-      window.addEventListener('scroll', _onScroll);
-      tracker.page('homepage');
+      window.addEventListener('beforeunload', _beforeUnload)
+      window.addEventListener('scroll', _onScroll)
+      tracker.page('homepage')
     }
     componentWillUnount() {
-      window.removeEventListener('scroll', _onScroll);
+      window.removeEventListener('scroll', _onScroll)
     }
     render() {
-      return <div onClick={tracker.click}><Component {...this.props} {...this.state} /></div>;
+      return <div onClick={tracker.click}><Component {...this.props} {...this.state} /></div>
     }
   }
-  return TrackerHoC;
+  return TrackerHoC
 }

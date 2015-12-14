@@ -1,13 +1,13 @@
-import { plugins } from './';
+import { plugins } from './'
 
 export function handleErrors() {
 
-  const args = Array.prototype.slice.call(arguments);
+  const args = Array.prototype.slice.call(arguments)
 
   plugins.notify.onError({
     title: 'Compile Error',
     message: '<%= error %>'
-  }).apply(this, args);
+  }).apply(this, args)
 
-  this.emit('end');
+  this.emit('end')
 }
