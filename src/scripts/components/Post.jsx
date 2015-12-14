@@ -1,5 +1,4 @@
 import React from 'react';
-import track from '../utils/tracker';
 
 class Post extends React.Component {
   render() {

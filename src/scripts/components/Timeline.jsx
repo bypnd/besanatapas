@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tracker } from '../utils/tracker';
+import { Tracker } from '../utils/Tracker';
 
 import Post from './Post';
 import TimelineStore from '../stores/timeline-store';

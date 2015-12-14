@@ -3,8 +3,6 @@ import logger from './logger';
 import throttle from 'lodash.throttle';
 import React from 'react';
 
-const _limit = 2;
-const _requests = [];
 let _maxScroll = 0;
 
 function _sendTracking() {
@@ -17,17 +15,11 @@ function _sendTracking() {
 
 _sendTracking('create', config.analytics.id, config.analytics.cookieDomain);
 
-setInterval(function () {
-  for (let i = 0; i < _limit && _requests.length; i++) {
-    _sendTracking.apply(_sendTracking, _requests.pop());
-  }
-}, 1000);
-
 /**
  * Queue request to analytics
  */
 function _request() {
-  _requests.push(Array.prototype.slice.call(arguments));
+  _sendTracking.apply(_sendTracking, Array.prototype.slice.call(arguments));
 }
 /**
  * Extract the information to send to the event (category,action,label,value)
@@ -94,7 +86,6 @@ const tracker = {
     }
   }
 };
-export default tracker;
 
 function _beforeUnload() {
   let _scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
@@ -134,7 +125,7 @@ export function Tracker(Component) {
       window.removeEventListener('scroll', _onScroll);
     }
     render() {
-      return <Component {...this.props} {...this.state} onClick={tracker.click} />;
+      return <div onClick={tracker.click}><Component {...this.props} {...this.state} /></div>;
     }
   }
   return TrackerHoC;
