@@ -1,7 +1,9 @@
 .timeline {
+  background-color: $secondary-color;
   padding: $gutter;
 }
 .item {
+  background-color: $white;
   box-shadow: 0 0 4px $gray-40;
   margin-bottom: $gutter;
 
@@ -14,16 +16,16 @@
       display: inline-block;
       height: 48px; width: 48px;
     }
-    .item-header-meta {
+    .item__header-meta {
       margin-left: $gutter;
       width: 100%;
       & > .fa { float: right; }
-      h3 { margin: 0; }
+      h2 { margin: 0; }
       & > .engagement { float: right; }
     }
   }
-  &.item-twitter   .user-picture { border-radius: $global-radius; }
-  &.item-instagram .user-picture {
+  &.item_twitter   .user-picture { border-radius: $global-radius; }
+  &.item_instagram .user-picture {
     border: 1px solid $gray-20;
     border-radius: $global-rounded;
   }
@@ -40,5 +42,6 @@
 }
 
 .engagement {
-  .qty:not(:last-of-type) { margin-right: $gutter; }
+  .fa { margin-right: $gutter-xs; }
+  .qty:not(:last-of-type) { margin-right: $gutter-xl; }
 }

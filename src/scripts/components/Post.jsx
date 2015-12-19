@@ -3,16 +3,16 @@ import React from 'react'
 class Post extends React.Component {
   render() {
     return (
-      <div className={'item item-'+this.props.source}>
+      <div className={'item item_'+this.props.source}>
         <header data-trail={this.props.source + ',click,header'}>
           <img src={this.props.user.profile_picture}
             className="user-picture"
             data-trail={this.props.source + ',click,profile-pic'} />
-          <div className="item-header-meta">
+          <div className="item__header-meta">
             <i className={'fa fa-'+this.props.source}
               data-trail={this.props.source + ',click,source-icon'}></i>
-            <h3 data-trail={this.props.source + ',click,username'}>
-              {this.props.user.display_name}</h3>
+            <h2 data-trail={this.props.source + ',click,username'}>
+              {this.props.user.display_name}</h2>
             <span className="engagement" data-trail={this.props.source + ',click,engagement'}>
               <i className="fa fa-comment"></i>
               <span className="qty">{this.props.comments}</span>

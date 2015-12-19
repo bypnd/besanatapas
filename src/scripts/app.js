@@ -7,5 +7,5 @@ TimelineSources.fetchAPI()
 
 ReactDOM.render(
   <Timeline />,
-  document.getElementById('timeline-container')
+  document.getElementById('container')
 )

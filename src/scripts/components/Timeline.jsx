@@ -23,11 +23,8 @@ class Timeline extends React.Component {
   render() {
     if (this.state.posts.length === 0) return <div>Loading...</div>
     return (
-      <div className="timeline">
-        <h2>Timeline</h2>
-        <div className="timeline-item" data-trail=",click,timeline-container">
-          {this.state.posts.map( post => <Post key={post.id} {...post} /> )}
-        </div>
+      <div className="timeline" data-trail=",click,timeline-container">
+        {this.state.posts.map( post => <Post key={post.id} {...post} /> )}
       </div>
     )
   }
