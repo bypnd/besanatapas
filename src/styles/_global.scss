@@ -16,3 +16,7 @@ $global-radius: 3px;
 $global-rounded: 999px;
 
 $gutter: 1rem;
+$gutter-xs: modular-scale(-2, $gutter);
+$gutter-sm: modular-scale(-1, $gutter);
+$gutter-lg: modular-scale(1, $gutter);
+$gutter-xl: modular-scale(2, $gutter);

@@ -7,11 +7,11 @@ $font-family-custom: 'Comfortaa';
 $base-font-family: $font-family-sans-serif !default;
 $font-color: $text-color !default;
 
-$font-size-xs: .6rem !default;
-$font-size-sm: .8rem !default;
+$font-size-xs: modular-scale(-2, $em-base);
+$font-size-sm: modular-scale(-1, $em-base);
 $font-size: $em-base !default;
-$font-size-lg: 1.3rem !default;
-$font-size-xl: 1.6rem !default;
+$font-size-lg: modular-scale(1, $em-base);
+$font-size-xl: modular-scale(2, $em-base);
 
 // headers
 $header-font-family: $font-family-custom !default;
@@ -64,6 +64,13 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 0;
   }
 }
+h1 { font-size: $font-size-xl; }
+h2 { font-size: $font-size-lg; }
+h3 { font-size: $font-size; }
+h4 { font-size: $font-size; }
+h5 { font-size: $font-size-sm; }
+h6 { font-size: $font-size-xs; }
+
 
 p {
   line-height: $paragraph-line-height;
