@@ -1,7 +1,10 @@
 #container { background-color: $gray-10; }
 
 @media all and (min-width: 640px) {
-  body { @include display (flex); }
+  body {
+    @include display (flex);
+    overflow: hidden;
+  }
   #container, .sidebar {
     height: 100vh;
     overflow-y: auto;
