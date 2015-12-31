@@ -2,6 +2,9 @@
 $em-base: 16px;
 @import "bourbon";
 
+// import `Comfortaa` type font from google fonts
+@import url(https://fonts.googleapis.com/css?family=Comfortaa);
+
 // font-awesome variables
 //$fa-font-path: "../font";
 $fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.4.0/fonts" !default; // for referencing Bootstrap CDN font files directly
