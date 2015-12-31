@@ -1,0 +1,7 @@
+$timeline-maxwidth: 600px;
+
+.timeline {
+  margin: 0 auto;
+  max-width: $timeline-maxwidth;
+  padding: $gutter;
+}
