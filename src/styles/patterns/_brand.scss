@@ -1,0 +1,25 @@
+.brand {
+  margin: 0;
+  @include display(flex);
+  @include flex-wrap(wrap);
+}
+.brand__logo {
+  @include flex(0 0 40px);
+  line-height: 0;
+  margin-right: $gutter;
+  text-align: center;
+  img { width: 100% }
+}
+.brand__type {
+  color: $secondary-color;
+  @include flex(1 0 0);
+}
+
+@media all and (min-width: 640px) {
+  .brand__logo {
+    @include flex-basis(100%);
+    height: inherit;
+    img { width: 40% }
+  }
+  .brand__type { text-align: center; }
+}
