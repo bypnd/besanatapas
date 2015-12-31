@@ -1,0 +1,11 @@
+#container { background-color: $gray-10; }
+
+@media all and (min-width: 640px) {
+  body { @include display (flex); }
+  #container, .sidebar {
+    height: 100vh;
+    overflow-y: auto;
+  }
+  #container { @include flex(2 0 0); }
+  .sidebar { @include flex(1 0 0); }
+}

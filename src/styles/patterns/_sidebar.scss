@@ -1,0 +1,8 @@
+$sidebar-bgcolor: $primary-color !default;
+$sidebar__content-color: $gray-10 !default;
+
+.sidebar {
+  background-color: $sidebar-bgcolor;
+  padding: $gutter;
+}
+.sidebar__content { color: $sidebar__content-color; }
