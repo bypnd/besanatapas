@@ -6,5 +6,9 @@
   },
   "logger": {
     "level": 2
+  },
+  "twitter": {
+    "apiUrl": "http://localhost:5000",
+    "userId": "239744001"
   }
 }
