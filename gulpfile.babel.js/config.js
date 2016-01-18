@@ -56,6 +56,10 @@ export const config = {
   src: SRC +  '/config/config.tmpl',
   dest: SRC + '/scripts'
 }
+export const deploy = {
+  dest: DEST,
+  domain: baseConfig.domain
+}
 export const lint = {
   src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
 }
