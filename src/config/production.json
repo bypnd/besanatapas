@@ -1,0 +1,10 @@
+{
+  "analytics": {
+    "id": "UA-25897529-1",
+    "cookieDomain": "besanatapas.com"
+  },
+  "twitter": {
+    "apiUrl": "https://piopio.herokuapp.com",
+    "userId": "239744001"
+  }
+}
