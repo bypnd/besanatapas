@@ -1,13 +1,21 @@
 import babelify from 'babelify'
 import browserify from 'browserify'
 import gulp from 'gulp'
+import lazypipe from 'lazypipe'
+import buffer from 'vinyl-buffer'
 import source from 'vinyl-source-stream'
 import watchify from 'watchify'
 import { browserify as config } from '../config'
 import { handleErrors, plugins, reload } from '../lib'
 
+let uglify = lazypipe()
+  .pipe(buffer)
+  .pipe(plugins.sourcemaps.init, { loadMaps: true })
+  .pipe(plugins.uglify)
+  .pipe(plugins.sourcemaps.write, './')
+
 // babelify+watchify+browserify
-var b = browserify({
+let b = browserify({
   cache: {},
   debug: true,
   entries: [config.src],
@@ -15,13 +23,14 @@ var b = browserify({
   packageCache: {},
   transform: [babelify]
 })
-var bundler = function () {
-  var bundleStart = Date.now()
+let bundler = function () {
+  let bundleStart = Date.now()
   plugins.util.log('Browserify bundler started')
   return b
     .bundle()
     .on('error', handleErrors)
     .pipe(source(config.outputName))
+    .pipe(!config.watch ? uglify() : plugins.util.noop())
     .pipe(gulp.dest(config.dest))
     .pipe(reload({stream:true}))
     .pipe(plugins.notify({
