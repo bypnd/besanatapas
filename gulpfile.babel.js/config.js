@@ -43,6 +43,10 @@ export const assets = {
   images: {
     src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
     dest: DEST + '/images'
+  },
+  lib: {
+    src: './node_modules/rollbar-browser/dist/rollbar.min.js',
+    dest: DEST + '/scripts'
   }
 }
 export const browserify = {

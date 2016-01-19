@@ -48,9 +48,11 @@
     "gulp-surge": "^0.1.0",
     "gulp-template": "^3.1.0",
     "gulp-util": "^3.0.6",
+    "merge-stream": "^1.0.0",
     "minimist": "^1.2.0",
     "normalize.css": "^3.0.3",
     "require-dir": "^0.3.0",
+    "rollbar-browser": "^1.8.3",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.5.0"
   },
