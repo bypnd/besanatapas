@@ -16,7 +16,7 @@ function Transform(tweet) {
     message: _message(tweet.text, tweet.entities), //TODO: parse plain text to enrich tweet with hashtags, user mentions, etc.
     media: { //TODO: tweets media gallery. Tweets can have more than one image
       type: (tweet.entities.media) ? tweet.entities.media[0].type : false,
-      url: (tweet.entities.media) ? tweet.entities.media[0].media_url : false,
+      url: (tweet.entities.media) ? tweet.entities.media[0].media_url_https : false,
       link: (tweet.entities.media) ? tweet.entities.media[0].expanded_url : false
     },
     favourites: tweet.favorite_count,

@@ -5,13 +5,17 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <title><%= title %></title>
-    <link rel="stylesheet" href="/styles/besana.css" media="all">
+    <link rel="stylesheet" href="/styles/besana.css?rev=<%= revision %>" media="all">
     <script>
     var _rollbarConfig = {
-      accessToken: "<%= logger.accessToken %>",
+      accessToken: "<%= logger.clientToken %>",
       captureUncaught: true,
       payload: {
-        environment: "<%= env %>"
+        environment: "<%= env %>",
+        javascript: {
+          source_map_enabled: true,
+          code_version: "<%= revision %>"
+        }
       }
     };
     </script>

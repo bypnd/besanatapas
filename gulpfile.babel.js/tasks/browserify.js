@@ -12,7 +12,11 @@ let uglify = lazypipe()
   .pipe(buffer)
   .pipe(plugins.sourcemaps.init, { loadMaps: true })
   .pipe(plugins.uglify)
-  .pipe(plugins.sourcemaps.write, './')
+  .pipe(plugins.rollbar, {
+    accessToken: config.glob.logger.apiToken,
+    version: config.glob.revision,
+    sourceMappingURLPrefix: 'https://' + config.glob.domain
+  })
 
 // babelify+watchify+browserify
 let b = browserify({

@@ -1,6 +1,7 @@
 import assign from 'deep-assign'
 import bourbon from 'bourbon'
 import fs from 'fs'
+import git from 'git-rev-sync'
 import minimist from 'minimist'
 import { plugins } from './lib'
 
@@ -34,6 +35,7 @@ assign(
   {
     debug: (options.env === 'development'),
     env: options.env,
+    revision: process.env.GIT_COMMIT || git.short(), //eslint-disable-line no-undef
     version: pkg.version
   },
   envConfig
@@ -51,6 +53,7 @@ export const assets = {
 }
 export const browserify = {
   dest: DEST + '/scripts',
+  glob: baseConfig,
   outputName: 'app.js',
   src: SRC + '/scripts/app.js',
   watch: (options.env === 'development')
