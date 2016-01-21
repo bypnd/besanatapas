@@ -87,6 +87,7 @@ export const styles = {
       'node_modules/normalize.css/',
       bourbon.includePaths[0],
       'node_modules/font-awesome/scss/'
-    ]
+    ],
+    outputStyle: options.env === 'development' ? 'nested' : 'compressed'
   }
 }
