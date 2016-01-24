@@ -3,7 +3,12 @@ import mergeStream from 'merge-stream'
 import { plugins, reload } from '../lib'
 import { assets as config } from '../config'
 
-gulp.task('assets', function() {
+gulp.task('favicon', function(done) {
+  // generate favicons
+  plugins.realFavicon.generateFavicon(config.favicon, () => done())
+})
+
+gulp.task('assets', ['favicon'], function() {
   // copy images
   let imagesStream = gulp.src(config.images.src)
     .pipe(plugins.imagemin())

@@ -14,6 +14,7 @@ if (process.argv.indexOf('dev') !== -1) options.env = 'development' //eslint-dis
 
 const DEST = './build'
 const SRC = './src'
+const FAVICON_DATA = '.favicondata'
 
 function loadJSON(filepath) {
   try {
@@ -42,6 +43,53 @@ assign(
 )
 
 export const assets = {
+  favicon: {
+    masterPicture: SRC + '/assets/favicon.png',
+    dest: DEST,
+    iconsPath: '/',
+    design: {
+      ios: {
+        pictureAspect: 'backgroundAndMargin',
+        backgroundColor: '#ffffff',
+        margin: '28%',
+        appName: 'Besana Tapas'
+      },
+      desktopBrowser: {},
+      windows: {
+        pictureAspect: 'noChange',
+        backgroundColor: '#da532c',
+        onConflict: 'override',
+        appName: 'Besana Tapas'
+      },
+      androidChrome: {
+        pictureAspect: 'backgroundAndMargin',
+        margin: '25%',
+        backgroundColor: '#ffffff',
+        themeColor: '#a8acb8',
+        manifest: {
+          name: 'BesanaTapas',
+          display: 'browser',
+          orientation: 'notSet',
+          onConflict: 'override',
+          declared: true
+        }
+      },
+      safariPinnedTab: {
+        pictureAspect: 'silhouette',
+        themeColor: '#5bbad5'
+      }
+    },
+    settings: {
+      compression: 5,
+      scalingAlgorithm: 'Mitchell',
+      errorOnImageTooSmall: false
+    },
+    versioning: {
+      paramName: 'rev',
+      paramValue: baseConfig.revision
+    },
+    markupFile: FAVICON_DATA
+  },
   images: {
     src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
     dest: DEST + '/images'
@@ -73,6 +121,7 @@ export const lint = {
 export const markup = {
   data: baseConfig,
   dest: DEST,
+  faviconData: FAVICON_DATA,
   src: SRC + '/*.html'
 }
 export const serve = {
