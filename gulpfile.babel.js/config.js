@@ -112,6 +112,7 @@ export const config = {
   dest: SRC + '/scripts'
 }
 export const deploy = {
+  data: baseConfig,
   dest: DEST,
   domain: baseConfig.domain
 }
