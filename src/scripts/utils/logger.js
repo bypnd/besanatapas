@@ -58,6 +58,13 @@ Logger.prototype.debug = function () {
     _logWriter.apply(this, args)
   }
 }
+Logger.prototype.info = function () {
+  if (_level <= _LEVELS.info) {
+    const args = Array.prototype.slice.call(arguments)
+    args.unshift('info')
+    _logWriter.apply(this, args)
+  }
+}
 Logger.prototype.error = function () {
   if (_level <= _LEVELS.error) {
     const args = Array.prototype.slice.call(arguments)

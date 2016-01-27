@@ -93,16 +93,24 @@ function _beforeUnload() {
   let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop
   let _currentScrollPercent = Math.round(_currentScroll / (_scrollHeight - _viewportHeight) * 100)
   let _maxScrollPercent = Math.round(_maxScroll / (_scrollHeight - _viewportHeight) * 100)
-  tracker.event('onCloseScroll', {
-    category: 'engadgment',
-    action: 'close scroll',
-    label: _currentScrollPercent + '%',
+  logger.log('scroll tracking variables', {
+    _scrollHeight: _scrollHeight,
+    _viewportHeight: _viewportHeight,
+    _currentScroll: _currentScroll,
+    _currentScrollPercent: _currentScrollPercent,
+    _maxScroll: _maxScroll,
+    _maxScrollPercent: _maxScrollPercent
+  })
+  tracker.event('onCloseScrollPercent', {
+    category: 'scroll',
+    action: 'close',
+    label: _currentScrollPercent,
     value: Math.round(_currentScroll)
   })
-  tracker.event('maxScroll', {
-    category: 'engadgment',
-    action: 'max scroll',
-    label: _maxScrollPercent + '%',
+  tracker.event('maxScrollPercent', {
+    category: 'scroll',
+    action: 'maximun',
+    label: _maxScrollPercent,
     value: Math.round(_maxScroll)
   })
 }
