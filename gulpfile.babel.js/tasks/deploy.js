@@ -10,7 +10,7 @@ gulp.task('deploy', ['build'], function (done) {
     project: config.dest,
     domain: config.domain
   }).on('close', (stdout) => {
-    plugins.util.log(`Finished deployment to surge (${stdout})`)
+    plugins.util.log(`Finished deployment to surge (${stdout}) of revision '${config.data.revision}'`)
     rollbarRecordDeploy(config.data, done)
   })
 })
