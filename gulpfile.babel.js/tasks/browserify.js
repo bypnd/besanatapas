@@ -15,7 +15,10 @@ let uglify = lazypipe()
   .pipe(plugins.rollbar, {
     accessToken: config.glob.logger.apiToken,
     version: config.glob.revision,
-    sourceMappingURLPrefix: 'https://' + config.glob.domain + '/scripts'
+    sourceMappingURLPrefix: `https://${config.glob.domain}/scripts`
+  })
+  .pipe(plugins.sourcemaps.write, '../../tmp', {
+    sourceMappingURL: (file) => `https://${config.glob.domain}/scripts/${file.relative}.map`
   })
 
 // babelify+watchify+browserify
