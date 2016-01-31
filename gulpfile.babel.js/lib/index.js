@@ -9,7 +9,8 @@ export { handleErrors } from './handleErrors.js'
 
 export function rollbarRecordDeploy(options, done = () => {}) {
   plugins.util.log('Starting '
-    + plugins.util.colors.cyan('record deployment to rollbar')
+    + plugins.util.colors.yellow(`[${options.revision}]`)
+    + plugins.util.colors.cyan(`record deployment to rollbar`)
     + '...'
   )
   let postData = querystring.stringify({
