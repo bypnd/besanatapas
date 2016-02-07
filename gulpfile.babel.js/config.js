@@ -2,7 +2,7 @@ import assign from 'deep-assign'
 import bourbon from 'bourbon'
 import git from 'git-rev-sync'
 import minimist from 'minimist'
-import { loadJSON } from './lib'
+import { loadJSON, pageTitle } from './lib'
 
 let knownOptions = {
   string: ['env', 'site'],
@@ -18,6 +18,7 @@ if (process.argv.indexOf('dev') !== -1) options.env = 'development' //eslint-dis
 const pkg = loadJSON('./package.json')
 const baseConfig = loadJSON('./src/config/config.json')
 const envConfig = loadJSON('./src/config/' + options.env + '.json')
+const siteConfig = loadJSON('./src/sites/' + options.site + '.json')
 assign(
   baseConfig,
   {
@@ -27,7 +28,11 @@ assign(
     site: options.site,
     version: pkg.version
   },
-  envConfig
+  siteConfig,
+  envConfig,
+  {
+    title: pageTitle(siteConfig.title, envConfig.titlePrefix)
+  }
 )
 
 const DEST = `./build/${baseConfig.site}`
@@ -37,39 +42,9 @@ const FAVICON_DATA = '.favicondata'
 export const assets = {
   favicon: {
     dest: DEST,
+    design: baseConfig.favicon,
     iconsPath: '/',
-    design: {
-      ios: {
-        pictureAspect: 'backgroundAndMargin',
-        backgroundColor: '#ffffff',
-        margin: '28%',
-        appName: 'Besana Tapas'
-      },
-      desktopBrowser: {},
-      windows: {
-        pictureAspect: 'noChange',
-        backgroundColor: '#da532c',
-        onConflict: 'override',
-        appName: 'Besana Tapas'
-      },
-      androidChrome: {
-        pictureAspect: 'backgroundAndMargin',
-        margin: '25%',
-        backgroundColor: '#ffffff',
-        themeColor: '#a8acb8',
-        manifest: {
-          name: 'BesanaTapas',
-          display: 'browser',
-          orientation: 'notSet',
-          onConflict: 'override',
-          declared: true
-        }
-      },
-      safariPinnedTab: {
-        pictureAspect: 'silhouette',
-        themeColor: '#5bbad5'
-      }
-    },
+    markupFile: FAVICON_DATA,
     masterPicture: SRC + `/assets/${baseConfig.site}/favicon.png`,
     settings: {
       compression: 5,
@@ -79,8 +54,7 @@ export const assets = {
     versioning: {
       paramName: 'rev',
       paramValue: baseConfig.revision
-    },
-    markupFile: FAVICON_DATA
+    }
   },
   images: {
     src: SRC + `/assets/${baseConfig.site}/images/*.{svg,png,jpg,gif}`,

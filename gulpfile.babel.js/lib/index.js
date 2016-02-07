@@ -27,6 +27,17 @@ export function loadJSON(filepath) {
   }
 }
 /**
+ * return the title for the page
+ *
+ * @param String title
+ * @param String prefix
+ *
+ * @return String
+ */
+export function pageTitle(title, prefix) {
+  return prefix ? `${prefix} | ${title}` : title
+}
+/**
  * Record the deploy into the logger (rollbar)
  *
  * @param Object options
