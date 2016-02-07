@@ -36,7 +36,6 @@ const FAVICON_DATA = '.favicondata'
 
 export const assets = {
   favicon: {
-    masterPicture: SRC + '/assets/favicon.png',
     dest: DEST,
     iconsPath: '/',
     design: {
@@ -71,6 +70,7 @@ export const assets = {
         themeColor: '#5bbad5'
       }
     },
+    masterPicture: SRC + `/assets/${baseConfig.site}/favicon.png`,
     settings: {
       compression: 5,
       scalingAlgorithm: 'Mitchell',
@@ -83,7 +83,7 @@ export const assets = {
     markupFile: FAVICON_DATA
   },
   images: {
-    src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
+    src: SRC + `/assets/${baseConfig.site}/images/*.{svg,png,jpg,gif}`,
     dest: DEST + '/images'
   },
   lib: {
