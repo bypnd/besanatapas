@@ -96,7 +96,7 @@ export const serve = {
   notify: false
 }
 export const styles = {
-  src: SRC + '/styles/**/*.{sass,scss}',
+  src: SRC + `/styles/${baseConfig.site}.scss`,
   dest: DEST + '/styles',
   settings: {
     includePaths: [
