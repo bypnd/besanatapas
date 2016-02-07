@@ -1,9 +1,8 @@
 import assign from 'deep-assign'
 import bourbon from 'bourbon'
-import fs from 'fs'
 import git from 'git-rev-sync'
 import minimist from 'minimist'
-import { plugins } from './lib'
+import { loadJSON } from './lib'
 
 let knownOptions = {
   string: 'env',
@@ -16,17 +15,6 @@ const DEST = './build'
 const SRC = './src'
 const FAVICON_DATA = '.favicondata'
 
-function loadJSON(filepath) {
-  try {
-    return JSON.parse(fs.readFileSync(filepath, 'utf8'))
-  } catch (err) {
-    plugins.util.log(
-      plugins.util.colors.yellow('WARNNING!! Unable to load JSON file: '),
-      plugins.util.colors.red(err.message)
-    )
-    return {}
-  }
-}
 // generate configs: combine base + environment configs
 const pkg = loadJSON('./package.json')
 const baseConfig = loadJSON('./src/config/config.json')
@@ -117,7 +105,7 @@ export const deploy = {
   domain: baseConfig.domain
 }
 export const lint = {
-  src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
+  src: [ SRC + '/scripts/**/*', './gulpfile.babel.js/**/*.js' ]
 }
 export const markup = {
   data: baseConfig,
