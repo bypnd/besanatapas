@@ -5,15 +5,14 @@ import minimist from 'minimist'
 import { loadJSON } from './lib'
 
 let knownOptions = {
-  string: 'env',
-  default: { env: process.env.NODE_ENV || 'production' } //eslint-disable-line no-undef
+  string: ['env', 'site'],
+  default: {
+    env: process.env.NODE_ENV || 'production', //eslint-disable-line no-undef
+    site: process.env.SITE || 'default' //eslint-disable-line no-undef
+  }
 }
 let options = minimist(process.argv.slice(2), knownOptions) //eslint-disable-line no-undef
 if (process.argv.indexOf('dev') !== -1) options.env = 'development' //eslint-disable-line no-undef
-
-const DEST = './build'
-const SRC = './src'
-const FAVICON_DATA = '.favicondata'
 
 // generate configs: combine base + environment configs
 const pkg = loadJSON('./package.json')
@@ -25,10 +24,15 @@ assign(
     debug: (options.env === 'development'),
     env: options.env,
     revision: process.env.GIT_COMMIT || git.short(), //eslint-disable-line no-undef
+    site: options.site,
     version: pkg.version
   },
   envConfig
 )
+
+const DEST = `./build/${baseConfig.site}`
+const SRC = './src'
+const FAVICON_DATA = '.favicondata'
 
 export const assets = {
   favicon: {
