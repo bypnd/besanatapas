@@ -88,7 +88,7 @@ const tracker = {
 }
 
 function _beforeUnload() {
-  let _scrollHeight = document.body.scrollHeight || document.documentElement.scrollHeight
+  let _scrollHeight = document.getElementById('container').scrollHeight
   let _viewportHeight = document.documentElement.clientHeight
   let _currentScroll = document.body.scrollTop || document.documentElement.scrollTop
   let _currentScrollPercent = Math.round(_currentScroll / (_scrollHeight - _viewportHeight) * 100)
