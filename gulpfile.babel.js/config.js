@@ -1,5 +1,6 @@
 import assign from 'deep-assign'
 import bourbon from 'bourbon'
+import fs from 'fs'
 import git from 'git-rev-sync'
 import minimist from 'minimist'
 import { loadJSON, pageTitle } from './lib'
@@ -39,6 +40,14 @@ const DEST = `./build/${baseConfig.site}`
 const SRC = './src'
 const FAVICON_DATA = '.favicondata'
 
+// write config as ES6 module to be imported by the JS app
+fs.writeFileSync(
+`${SRC}/scripts/config.js`,
+`/* eslint-disable quotes */
+export default ${JSON.stringify(baseConfig)}
+/* eslint-enable quotes */`
+)
+
 export const assets = {
   favicon: {
     dest: DEST,
@@ -71,11 +80,6 @@ export const browserify = {
   outputName: 'app.js',
   src: SRC + '/scripts/app.js',
   watch: (options.env === 'development')
-}
-export const config = {
-  data: baseConfig,
-  src: SRC +  '/config/config.tmpl',
-  dest: SRC + '/scripts'
 }
 export const deploy = {
   data: baseConfig,
