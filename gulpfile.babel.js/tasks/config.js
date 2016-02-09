@@ -1,13 +1,12 @@
 import gulp from 'gulp'
-import { plugins, reload } from '../lib'
+import fs from 'fs'
 
 import { config } from '../config'
 
+const tmpl = `/* eslint-disable quotes */
+export default ${JSON.stringify(config.data)}
+/* eslint-enable quotes */`
+
 gulp.task('config', function() {
-  // copy the right config file into scripts folder
-  return gulp.src(config.src)
-    .pipe(plugins.template({config: JSON.stringify(config.data)}))
-    .pipe(plugins.rename('config.js'))
-    .pipe(gulp.dest(config.dest))
-    .pipe(reload({stream: true}))
+  return fs.writeFileSync('./src/scripts/config.js', tmpl)
 })

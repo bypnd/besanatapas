@@ -85,11 +85,16 @@ export const deploy = {
 export const lint = {
   src: [ SRC + '/scripts/**/*', './gulpfile.babel.js/**/*.js' ]
 }
+const MARKUPDIR = '/templates'
 export const markup = {
   data: baseConfig,
   dest: DEST,
   faviconData: FAVICON_DATA,
-  src: SRC + '/*.html'
+  layouts: `${SRC}${MARKUPDIR}/layouts/*.hbs`,
+  options: { layout: `${SRC}${MARKUPDIR}/layouts/default.hbs` },
+  pages: `${SRC}${MARKUPDIR}/pages/*.hbs`,
+  partials: `${SRC}${MARKUPDIR}/partials/*.hbs`,
+  src: `${SRC}${MARKUPDIR}/**/*.hbs`
 }
 export const serve = {
   server: { baseDir: DEST },
