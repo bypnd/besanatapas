@@ -1,0 +1,14 @@
+<script>
+var _rollbarConfig = {
+  accessToken: "{{ logger.clientToken }}",
+  captureUncaught: true,
+  payload: {
+    environment: "{{ env }}",
+    javascript: {
+      source_map_enabled: true,
+      code_version: "{{ revision }}"
+    }
+  }
+};
+</script>
+<script type="text/javascript" src="scripts/rollbar.min.js?v1.8.3"></script>

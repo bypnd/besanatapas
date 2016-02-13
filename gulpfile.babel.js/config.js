@@ -91,6 +91,7 @@ export const lint = {
 }
 const MARKUPDIR = '/templates'
 export const markup = {
+  asite: `${SRC}${MARKUPDIR}/sites/${baseConfig.site}.hbs`,
   data: baseConfig,
   dest: DEST,
   faviconData: FAVICON_DATA,
