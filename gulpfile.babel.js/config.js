@@ -95,7 +95,7 @@ export const markup = {
   dest: DEST,
   faviconData: FAVICON_DATA,
   layouts: `${SRC}${MARKUPDIR}/layouts/*.hbs`,
-  options: { layout: `${SRC}${MARKUPDIR}/layouts/default.hbs` },
+  options: { layout: `${SRC}${MARKUPDIR}/layouts/base.hbs` },
   pages: `${SRC}${MARKUPDIR}/pages/*.hbs`,
   partials: `${SRC}${MARKUPDIR}/partials/*.hbs`,
   src: `${SRC}${MARKUPDIR}/**/*.hbs`
