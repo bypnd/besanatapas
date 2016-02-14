@@ -1,3 +1,4 @@
+/*global Rollbar*/
 import config from '../config'
 
 /** log levels:
@@ -34,11 +35,11 @@ function _logWriter(level) {
   _history.push(args)
   if (config.debug) {
     _devToolsConsole.apply(this, args)
-  } else if (config.logger && Rollbar) { //eslint-disable-line no-undef
+  } else if (config.logger && Rollbar) {
     args.shift()
     // Rollbar doesn't have `log` level, we change to `debug`
     level = (level === 'log') ? 'debug' : level
-    Rollbar[level].apply(Rollbar, args) //eslint-disable-line no-undef
+    Rollbar[level].apply(Rollbar, args)
   }
 }
 

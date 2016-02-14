@@ -46,10 +46,10 @@ export function pageTitle(title, prefix) {
  * @return Object (request)
  */
 export function rollbarRecordDeploy(options, done = () => {}) {
-  plugins.util.log('Starting '
-    + plugins.util.colors.yellow(`[${options.revision}] `)
-    + plugins.util.colors.cyan(`record deployment to rollbar`)
-    + '...'
+  plugins.util.log('Starting ' +
+    plugins.util.colors.yellow(`[${options.revision}] `) +
+    plugins.util.colors.cyan('record deployment to rollbar') +
+    '...'
   )
   let postData = querystring.stringify({
     'access_token': options.logger.apiToken,
@@ -68,15 +68,15 @@ export function rollbarRecordDeploy(options, done = () => {}) {
     }
   }, (res) => {
     res.on('data', (data) => {
-      plugins.util.log('Response from '
-        + plugins.util.colors.cyan('record deployment to rollbar')
-        + ': '
-        + plugins.util.colors.yellow(data)
+      plugins.util.log('Response from ' +
+        plugins.util.colors.cyan('record deployment to rollbar') +
+        ': ' +
+        plugins.util.colors.yellow(data)
       )
     })
     res.on('end', () => {
-      plugins.util.log('Finished '
-        + plugins.util.colors.cyan('record deployment to rollbar') + '.'
+      plugins.util.log('Finished ' +
+        plugins.util.colors.cyan('record deployment to rollbar') + '.'
       )
       done()
     })

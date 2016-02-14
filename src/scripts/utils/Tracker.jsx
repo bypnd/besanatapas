@@ -1,3 +1,4 @@
+/*global ga*/
 import config from '../config'
 import logger from './logger'
 import throttle from 'lodash.throttle'
@@ -7,7 +8,7 @@ let _maxScroll = 0
 
 function _sendTracking() {
   if (window.ga) {
-    window.ga.apply(ga, Array.prototype.slice.call(arguments)) //eslint-disable-line no-undef
+    window.ga.apply(ga, Array.prototype.slice.call(arguments))
   } else {
     logger.error('ga not available')
   }
@@ -136,5 +137,6 @@ export function Tracker(Component) {
       return <div onClick={tracker.click}><Component {...this.props} {...this.state} /></div>
     }
   }
+  TrackerHoC.displayName = 'Tracker'
   return TrackerHoC
 }

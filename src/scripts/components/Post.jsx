@@ -1,19 +1,21 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
+import Picture from './Picture'
 
-class Post extends React.Component {
+export default class Post extends Component {
   render() {
     return (
       <div className={'item item_'+this.props.source}>
         <header data-trail={this.props.source + ',click,header'}>
-          <img src={this.props.user.profile_picture}
-            className="user-picture"
-            data-trail={this.props.source + ',click,profile-pic'} />
+          <img className="user-picture"
+            data-trail={this.props.source + ',click,profile-pic'}
+            src={this.props.user.profile_picture} />
           <div className="item__header-meta">
             <i className={'fa fa-'+this.props.source}
               data-trail={this.props.source + ',click,source-icon'}></i>
             <h2 data-trail={this.props.source + ',click,username'}>
               {this.props.user.display_name}</h2>
-            <span className="engagement" data-trail={this.props.source + ',click,engagement'}>
+            <span className="engagement"
+              data-trail={this.props.source + ',click,engagement'}>
               <i className="fa fa-comment"></i>
               <span className="qty">{this.props.comments}</span>
               <i className="fa fa-heart"></i>
@@ -23,7 +25,8 @@ class Post extends React.Component {
           </div>
         </header>
         {(this.props.media.url) ?
-          <Picture {...this.props.media} data-trail={this.props.source + ',click,media'} />
+          <Picture {...this.props.media}
+            data-trail={this.props.source + ',click,media'} />
         : false}
         <div className="message"
           dangerouslySetInnerHTML={{__html: this.props.message}}
@@ -32,30 +35,19 @@ class Post extends React.Component {
     )
   }
 }
+Post.displayName = 'Post'
 Post.propTypes = {
-  comments: React.PropTypes.number,
-  created_at: React.PropTypes.object,
-  favourites: React.PropTypes.number,
-  id: React.PropTypes.string,
-  media: React.PropTypes.object,
-  message: React.PropTypes.string,
-  source: React.PropTypes.string,
-  user: React.PropTypes.shape({
-    display_name: React.PropTypes.string,
-    id: React.PropTypes.string,
-    profile_picture: React.PropTypes.string,
-    username: React.PropTypes.string
+  comments: PropTypes.number,
+  created_at: PropTypes.object,
+  favourites: PropTypes.number,
+  id: PropTypes.string,
+  media: PropTypes.object,
+  message: PropTypes.string,
+  source: PropTypes.string,
+  user: PropTypes.shape({
+    display_name: PropTypes.string,
+    id: PropTypes.string,
+    profile_picture: PropTypes.string,
+    username: PropTypes.string
   })
 }
-
-class Picture extends React.Component {
-  render() {
-    return (
-      <a className="picture" href={this.props.link} target="_blank">
-        <img src={this.props.url} />
-      </a>
-    )
-  }
-}
-
-export default Post

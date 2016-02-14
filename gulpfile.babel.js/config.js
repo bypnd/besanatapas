@@ -1,3 +1,4 @@
+/*eslint-env node*/
 import assign from 'deep-assign'
 import bourbon from 'bourbon'
 import fs from 'fs'
@@ -8,12 +9,12 @@ import { loadJSON, pageTitle } from './lib'
 let knownOptions = {
   string: ['env', 'site'],
   default: {
-    env: process.env.NODE_ENV || 'production', //eslint-disable-line no-undef
-    site: process.env.SITE || 'default' //eslint-disable-line no-undef
+    env: process.env.NODE_ENV || 'production',
+    site: process.env.SITE || 'default'
   }
 }
-let options = minimist(process.argv.slice(2), knownOptions) //eslint-disable-line no-undef
-if (process.argv.indexOf('dev') !== -1) options.env = 'development' //eslint-disable-line no-undef
+let options = minimist(process.argv.slice(2), knownOptions)
+if (process.argv.indexOf('dev') !== -1) options.env = 'development'
 
 // generate configs: combine base + environment configs
 const pkg = loadJSON('./package.json')
@@ -25,7 +26,7 @@ assign(
   {
     debug: (options.env === 'development'),
     env: options.env,
-    revision: process.env.GIT_COMMIT || git.short(), //eslint-disable-line no-undef
+    revision: process.env.GIT_COMMIT || git.short(),
     site: options.site,
     version: pkg.version
   },
@@ -78,7 +79,7 @@ export const browserify = {
   dest: DEST + '/scripts',
   glob: baseConfig,
   outputName: 'app.js',
-  src: SRC + '/scripts/app.js',
+  src: SRC + '/scripts/app.jsx',
   watch: (options.env === 'development')
 }
 export const deploy = {
