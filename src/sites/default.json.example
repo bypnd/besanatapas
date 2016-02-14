@@ -1,0 +1,45 @@
+{
+  "domain": "",
+  "favicon": {
+    "ios": {
+      "pictureAspect": "backgroundAndMargin",
+      "backgroundColor": "#ffffff",
+      "margin": "28%",
+      "appName": "Your App Name"
+    },
+    "desktopBrowser": {},
+    "windows": {
+      "pictureAspect": "noChange",
+      "backgroundColor": "#da532c",
+      "onConflict": "override",
+      "appName": "Your App Name"
+    },
+    "androidChrome": {
+      "pictureAspect": "backgroundAndMargin",
+      "margin": "25%",
+      "backgroundColor": "#ffffff",
+      "themeColor": "#a8acb8",
+      "manifest": {
+        "name": "YourAppName",
+        "display": "browser",
+        "orientation": "notSet",
+        "onConflict": "override",
+        "declared": true
+      }
+    },
+    "safariPinnedTab": {
+      "pictureAspect": "silhouette",
+      "themeColor": "#5bbad5"
+    }
+  },
+  "instagram": {
+    "userId": "",
+    "clientId": ""
+  },
+  "site": "default",
+  "title": "My website",
+  "twitter": {
+    "apiUrl": "",
+    "userId": ""
+  }
+}

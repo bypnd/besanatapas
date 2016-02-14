@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Tracker } from '../utils/Tracker'
 
 import Post from './Post'
@@ -10,7 +10,7 @@ let getPosts = function () {
   }
 }
 
-class Timeline extends React.Component {
+class Timeline extends Component {
   constructor(props) {
     super(props)
 
@@ -20,6 +20,9 @@ class Timeline extends React.Component {
   componentDidMount() {
     TimelineStore.addChangeListener(this._onChange)
   }
+  _onChange() {
+    this.setState(getPosts())
+  }
   render() {
     if (this.state.posts.length === 0) return <div>Loading...</div>
     return (
@@ -28,9 +31,7 @@ class Timeline extends React.Component {
       </div>
     )
   }
-  _onChange() {
-    this.setState(getPosts())
-  }
 }
+Timeline.displayName = 'Timeline'
 
 export default Tracker(Timeline)

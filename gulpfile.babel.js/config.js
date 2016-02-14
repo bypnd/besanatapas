@@ -1,84 +1,61 @@
+/*eslint-env node*/
 import assign from 'deep-assign'
 import bourbon from 'bourbon'
 import fs from 'fs'
 import git from 'git-rev-sync'
 import minimist from 'minimist'
-import { plugins } from './lib'
+import { loadJSON, pageTitle } from './lib'
 
 let knownOptions = {
-  string: 'env',
-  default: { env: process.env.NODE_ENV || 'production' } //eslint-disable-line no-undef
-}
-let options = minimist(process.argv.slice(2), knownOptions) //eslint-disable-line no-undef
-if (process.argv.indexOf('dev') !== -1) options.env = 'development' //eslint-disable-line no-undef
-
-const DEST = './build'
-const SRC = './src'
-const FAVICON_DATA = '.favicondata'
-
-function loadJSON(filepath) {
-  try {
-    return JSON.parse(fs.readFileSync(filepath, 'utf8'))
-  } catch (err) {
-    plugins.util.log(
-      plugins.util.colors.yellow('WARNNING!! Unable to load JSON file: '),
-      plugins.util.colors.red(err.message)
-    )
-    return {}
+  string: ['env', 'site'],
+  default: {
+    env: process.env.NODE_ENV || 'production',
+    site: process.env.SITE || 'default'
   }
 }
+let options = minimist(process.argv.slice(2), knownOptions)
+if (process.argv.indexOf('dev') !== -1) options.env = 'development'
+
 // generate configs: combine base + environment configs
 const pkg = loadJSON('./package.json')
 const baseConfig = loadJSON('./src/config/config.json')
 const envConfig = loadJSON('./src/config/' + options.env + '.json')
+const siteConfig = loadJSON('./src/sites/' + options.site + '.json')
 assign(
   baseConfig,
   {
     debug: (options.env === 'development'),
     env: options.env,
-    revision: process.env.GIT_COMMIT || git.short(), //eslint-disable-line no-undef
+    revision: process.env.GIT_COMMIT || git.short(),
+    site: options.site,
     version: pkg.version
   },
-  envConfig
+  siteConfig,
+  envConfig,
+  {
+    title: pageTitle(siteConfig.title, envConfig.titlePrefix)
+  }
+)
+
+const DEST = `./build/${baseConfig.site}`
+const SRC = './src'
+const FAVICON_DATA = '.favicondata'
+
+// write config as ES6 module to be imported by the JS app
+fs.writeFileSync(
+`${SRC}/scripts/config.js`,
+`/* eslint-disable quotes */
+export default ${JSON.stringify(baseConfig)}
+/* eslint-enable quotes */`
 )
 
 export const assets = {
   favicon: {
-    masterPicture: SRC + '/assets/favicon.png',
     dest: DEST,
+    design: baseConfig.favicon,
     iconsPath: '/',
-    design: {
-      ios: {
-        pictureAspect: 'backgroundAndMargin',
-        backgroundColor: '#ffffff',
-        margin: '28%',
-        appName: 'Besana Tapas'
-      },
-      desktopBrowser: {},
-      windows: {
-        pictureAspect: 'noChange',
-        backgroundColor: '#da532c',
-        onConflict: 'override',
-        appName: 'Besana Tapas'
-      },
-      androidChrome: {
-        pictureAspect: 'backgroundAndMargin',
-        margin: '25%',
-        backgroundColor: '#ffffff',
-        themeColor: '#a8acb8',
-        manifest: {
-          name: 'BesanaTapas',
-          display: 'browser',
-          orientation: 'notSet',
-          onConflict: 'override',
-          declared: true
-        }
-      },
-      safariPinnedTab: {
-        pictureAspect: 'silhouette',
-        themeColor: '#5bbad5'
-      }
-    },
+    markupFile: FAVICON_DATA,
+    masterPicture: SRC + `/assets/${baseConfig.site}/favicon.png`,
     settings: {
       compression: 5,
       scalingAlgorithm: 'Mitchell',
@@ -87,11 +64,10 @@ export const assets = {
     versioning: {
       paramName: 'rev',
       paramValue: baseConfig.revision
-    },
-    markupFile: FAVICON_DATA
+    }
   },
   images: {
-    src: SRC + '/assets/images/*.{svg,png,jpg,gif}',
+    src: SRC + `/assets/${baseConfig.site}/images/*.{svg,png,jpg,gif}`,
     dest: DEST + '/images'
   },
   lib: {
@@ -103,13 +79,8 @@ export const browserify = {
   dest: DEST + '/scripts',
   glob: baseConfig,
   outputName: 'app.js',
-  src: SRC + '/scripts/app.js',
+  src: SRC + '/scripts/app.jsx',
   watch: (options.env === 'development')
-}
-export const config = {
-  data: baseConfig,
-  src: SRC +  '/config/config.tmpl',
-  dest: SRC + '/scripts'
 }
 export const deploy = {
   data: baseConfig,
@@ -117,20 +88,26 @@ export const deploy = {
   domain: baseConfig.domain
 }
 export const lint = {
-  src: [ SRC + '/scripts/**/*', './gulp/**/*.js' ]
+  src: [ SRC + '/scripts/**/*', './gulpfile.babel.js/**/*.js' ]
 }
+const MARKUPDIR = '/templates'
 export const markup = {
+  asite: `${SRC}${MARKUPDIR}/sites/${baseConfig.site}.hbs`,
   data: baseConfig,
   dest: DEST,
   faviconData: FAVICON_DATA,
-  src: SRC + '/*.html'
+  layouts: `${SRC}${MARKUPDIR}/layouts/*.hbs`,
+  options: { layout: `${SRC}${MARKUPDIR}/layouts/base.hbs` },
+  pages: `${SRC}${MARKUPDIR}/pages/*.hbs`,
+  partials: `${SRC}${MARKUPDIR}/partials/*.hbs`,
+  src: `${SRC}${MARKUPDIR}/**/*.hbs`
 }
 export const serve = {
   server: { baseDir: DEST },
   notify: false
 }
 export const styles = {
-  src: SRC + '/styles/**/*.{sass,scss}',
+  src: SRC + `/styles/${baseConfig.site}.scss`,
   dest: DEST + '/styles',
   settings: {
     includePaths: [

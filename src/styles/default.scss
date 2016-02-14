@@ -1,0 +1,23 @@
+@import "normalize";
+
+/*! start | besana styleguide */
+@import "global";
+
+@import "elements/colours";
+@import "elements/layout";
+@import "elements/type";
+@import "patterns/brand";
+@import "patterns/card";
+@import "patterns/sidebar";
+@import "patterns/timeline";
+
+// -----------------------------------------------------------------------------
+// move to patterns
+// -----------------------------------------------------------------------------
+.label {
+  background-color: $gray-10;
+  border-radius: $global-radius;
+  display: inline-block;
+  line-height: 1;
+  padding: .1rem .6rem;
+}

@@ -1,22 +1,13 @@
 {
-  "title": "My website",
   "analytics": {
     "id": "UA-00000000-1",
     "cookieDomain": "none"
   },
-  "domain": "",
   "logger": {
     "apiToken": "",
     "clientToken": "",
-    "level": 2
+    "level": 2,
+    "username": ""
   },
-  "instagram": {
-    "userId": "",
-    "clientId": ""
-  },
-  "twitter": {
-    "apiUrl": "",
-    "userId": ""
-  },
-  "username": ""
+  "titlePrefix": ""
 }

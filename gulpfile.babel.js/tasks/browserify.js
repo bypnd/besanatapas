@@ -51,6 +51,6 @@ if (config.watch) {
   b.on('log', plugins.util.log)
 }
 
-gulp.task('browserify', ['config'], function() {
+gulp.task('browserify', function() {
   return bundler()
 })

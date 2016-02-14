@@ -1,3 +1,4 @@
+import fs from 'fs'
 import https from 'https'
 import querystring from 'querystring'
 
@@ -7,17 +8,54 @@ export const plugins = gulpLoadPlugins()
 export { reload } from 'browser-sync'
 export { handleErrors } from './handleErrors.js'
 
+/**
+ * Given the path to a valid JSON file returns a JSON object
+ *
+ * @param String filepath
+ *
+ * @return Object JSON
+ */
+export function loadJSON(filepath) {
+  try {
+    return JSON.parse(fs.readFileSync(filepath, 'utf8'))
+  } catch (err) {
+    plugins.util.log(
+      plugins.util.colors.yellow('WARNNING!! Unable to load JSON file: '),
+      plugins.util.colors.red(err.message)
+    )
+    return {}
+  }
+}
+/**
+ * return the title for the page
+ *
+ * @param String title
+ * @param String prefix
+ *
+ * @return String
+ */
+export function pageTitle(title, prefix) {
+  return prefix ? `${prefix} | ${title}` : title
+}
+/**
+ * Record the deploy into the logger (rollbar)
+ *
+ * @param Object options
+ * @param Function done (callback)
+ *
+ * @return Object (request)
+ */
 export function rollbarRecordDeploy(options, done = () => {}) {
-  plugins.util.log('Starting '
-    + plugins.util.colors.yellow(`[${options.revision}] `)
-    + plugins.util.colors.cyan(`record deployment to rollbar`)
-    + '...'
+  plugins.util.log('Starting ' +
+    plugins.util.colors.yellow(`[${options.revision}] `) +
+    plugins.util.colors.cyan('record deployment to rollbar') +
+    '...'
   )
   let postData = querystring.stringify({
     'access_token': options.logger.apiToken,
     'environment': options.env,
     'revision': options.revision,
-    'local_username': options.username
+    'local_username': options.logger.username
   })
   let req = https.request({
     hostname: 'api.rollbar.com',
@@ -30,15 +68,15 @@ export function rollbarRecordDeploy(options, done = () => {}) {
     }
   }, (res) => {
     res.on('data', (data) => {
-      plugins.util.log('Response from '
-        + plugins.util.colors.cyan('record deployment to rollbar')
-        + ': '
-        + plugins.util.colors.yellow(data)
+      plugins.util.log('Response from ' +
+        plugins.util.colors.cyan('record deployment to rollbar') +
+        ': ' +
+        plugins.util.colors.yellow(data)
       )
     })
     res.on('end', () => {
-      plugins.util.log('Finished '
-        + plugins.util.colors.cyan('record deployment to rollbar') + '.'
+      plugins.util.log('Finished ' +
+        plugins.util.colors.cyan('record deployment to rollbar') + '.'
       )
       done()
     })

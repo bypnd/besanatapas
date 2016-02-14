@@ -5,7 +5,9 @@ import { assets as config } from '../config'
 
 gulp.task('favicon', function(done) {
   // generate favicons
-  plugins.realFavicon.generateFavicon(config.favicon, () => done())
+  config.favicon.design ?
+    plugins.realFavicon.generateFavicon(config.favicon, () => done())
+  : done()
 })
 
 gulp.task('assets', ['favicon'], function() {
