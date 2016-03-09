@@ -1,11 +1,14 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 import Timeline from './components/Timeline'
-import TimelineSources from './utils/timeline-apis'
+import configureStore from './store/configureStore'
 
-TimelineSources.fetchAPI()
+const store = configureStore()
 
-ReactDOM.render(
-  <Timeline />,
+render(
+  <Provider store={store}>
+    <Timeline />
+  </Provider>,
   document.getElementById('container')
 )
