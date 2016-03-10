@@ -1,37 +1,41 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
+import { fetchAPIsIfNeeded } from '../actions'
 import { Tracker } from '../utils/Tracker'
 
 import Post from './Post'
-import TimelineStore from '../stores/timeline-store'
 
-let getPosts = function () {
-  return {
-    posts: TimelineStore.get()
-  }
-}
+const NETWORKS = ['instagram', 'twitter']
 
 class Timeline extends Component {
-  constructor(props) {
-    super(props)
-
-    this._onChange = this._onChange.bind(this)
-    this.state = getPosts()
-  }
   componentDidMount() {
-    TimelineStore.addChangeListener(this._onChange)
-  }
-  _onChange() {
-    this.setState(getPosts())
+    const { dispatch } = this.props
+    NETWORKS.forEach(
+      network => dispatch(fetchAPIsIfNeeded(network))
+    )
   }
   render() {
-    if (this.state.posts.length === 0) return <div>Loading...</div>
+    const { isFetching, posts } = this.props
+    const isEmpty = posts.length === 0
     return (
       <div className="timeline" data-trail=",click,timeline-container">
-        {this.state.posts.map( post => <Post key={post.id} {...post} /> )}
+      {isEmpty
+        ? (isFetching ? <div>Loading...</div> : <div>Empty</div>)
+        : posts.map( post => <Post key={post.id} {...post} /> )
+      }
       </div>
     )
   }
 }
 Timeline.displayName = 'Timeline'
+Timeline.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  posts: PropTypes.array.isRequired
+}
 
-export default Tracker(Timeline)
+function mapStateToProps(state) {
+  return state.posts
+}
+
+export default Tracker(connect(mapStateToProps)(Timeline))
